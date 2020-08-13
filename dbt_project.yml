@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'my_new_project'
+name: 'snowflake_dbt_poc'
 version: '1.0.0'
 config-version: 2
 
@@ -32,7 +32,23 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  my_new_project:
+  snowflake_dbt_poc:
+      ############################################
+      # Per current model we would materialise 
+      # everything but presentation as table.
+      ############################################
       # Applies to all files under models/example/
-      example:
+      #example:
+      #    materialized: view
+      # Applies to all files under models/l00_source/
+      l00_source:
           materialized: view
+      # Applies to all files under models/l10_staging/
+      l10_staging:
+          materialized: view
+      # Applies to all files under models/l120_marts/
+      l120_marts:
+          materialized: view
+      # Applies to all files under models/l130_presentation/
+          materialized: view
+
