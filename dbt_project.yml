@@ -34,17 +34,20 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   snowflake_dbt_poc:
       ############################################
-      # Per current model we would materilise 
+      # Per current model we would materialise 
       # everything but presentation as table.
       ############################################
       # Applies to all files under models/example/
-      example:
-          materialized: view
+      #example:
+      #    materialized: view
       # Applies to all files under models/l00_source/
+      l00_source:
           materialized: view
       # Applies to all files under models/l10_staging/
+      l10_staging:
           materialized: view
       # Applies to all files under models/l120_marts/
+      l120_marts:
           materialized: view
       # Applies to all files under models/l130_presentation/
           materialized: view
