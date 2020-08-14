@@ -1,5 +1,7 @@
 --{{ config(materialized='table') }}
 
+{{ config(schema='preqin') }}
+
 with fact_communication as (
 select 
 

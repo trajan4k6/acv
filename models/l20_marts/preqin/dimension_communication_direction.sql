@@ -1,5 +1,7 @@
 {{ config(materialized='table') }}
 
+{{ config(schema='preqin') }}
+
 with dimension_communication_direction as (
 select DISTINCT {{ dbt_utils.surrogate_key(
       'Comm_Direction'
