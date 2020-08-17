@@ -1,5 +1,7 @@
 {{ config(materialized='table') }}
 
+{{ config(schema='preqin') }}
+
 with dimension_firm as (
 select {{ dbt_utils.surrogate_key(
       'FIRM_ID'
