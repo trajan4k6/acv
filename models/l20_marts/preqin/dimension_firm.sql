@@ -1,6 +1,6 @@
 {{ config(materialized='table') }}
 
-{{ config(schema='preqin2') }}
+{{ config(schema='preqin') }}
 
 with dimension_firm as (
 select {{ dbt_utils.surrogate_key(
