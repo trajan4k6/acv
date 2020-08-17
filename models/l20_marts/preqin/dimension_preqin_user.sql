@@ -1,3 +1,7 @@
+{{ config(materialized='table') }}
+
+{{ config(schema='preqin') }}
+
 
 with dimension_maintenance_user as (
 SELECT 
