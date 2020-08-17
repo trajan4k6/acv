@@ -1,6 +1,6 @@
 {{ config(materialized='table') }}
 
---{{ config(schema='preqin') }}
+{{ config(schema='preqin') }}
 
 
 WITH dimension_user AS (

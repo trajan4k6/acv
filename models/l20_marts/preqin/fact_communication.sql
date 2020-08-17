@@ -1,6 +1,6 @@
 {{ config(materialized='view') }}
 
---{{ config(schema='preqin') }}
+{{ config(schema='preqin') }}
 
 with fact_communication as (
 select 
