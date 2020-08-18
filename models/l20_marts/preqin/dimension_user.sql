@@ -2,6 +2,13 @@
 
 --{{ config(schema='preqin') }}
 
+{{
+    config(
+        materialized='incremental',
+        unique_key='ContactFirm_ID'
+    )
+}}
+
 
 WITH dimension_user AS (
 SELECT
