@@ -1,7 +1,14 @@
-{{ config(materialized='table') }}
+--{{ config(materialized='table') }}
 
-{{ config(schema='preqin') }}
-
+--{{ config(schema='preqin') }}
+/*
+{{
+    config(
+        materialized='incremental',
+        unique_key='ContactFirm_ID'
+    )
+}}
+*/
 
 WITH dimension_user AS (
 SELECT

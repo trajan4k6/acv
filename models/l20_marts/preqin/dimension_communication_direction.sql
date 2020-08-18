@@ -1,6 +1,14 @@
-{{ config(materialized='table') }}
+--{{ config(materialized='table') }}
 
-{{ config(schema='preqin') }}
+--{{ config(schema='preqin') }}
+/*
+{{
+    config(
+        materialized='incremental',
+        unique_key='Comm_Direction'
+    )
+}}
+*/
 
 with dimension_communication_direction as (
 select DISTINCT {{ dbt_utils.surrogate_key(
