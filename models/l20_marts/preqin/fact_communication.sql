@@ -1,14 +1,14 @@
 --{{ config(materialized='view') }}
 
 --{{ config(schema='preqin') }}
-
+/*
 {{
     config(
         materialized='incremental',
         unique_key='Communication_ID'
     )
 }}
-
+*/
 with fact_communication as (
 select 
 

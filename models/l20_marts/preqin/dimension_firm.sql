@@ -1,13 +1,14 @@
 --{{ config(materialized='table') }}
 
 --{{ config(schema='preqin') }}
-
+/*
 {{
     config(
         materialized='incremental',
         unique_key='FIRM_ID'
     )
 }}
+*/
 
 with dimension_firm as (
 select {{ dbt_utils.surrogate_key(
