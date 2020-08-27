@@ -1,0 +1,41 @@
+
+version: 2
+
+models:
+    - name: heap_fact_app_page_viewed
+      description: A fact table that pulls event data from the mammoth_pro_key_actions_app_page_viewed Heap event
+      columns:
+          - name: event_id
+            description: A unique id for each occurance of the event
+            tests:
+                - unique
+                - not_null
+
+    - name: heap_fact_insights_page_viewed
+      description: A fact table that pulls event data from the mammoth_insights_insights_page_viewed Heap event
+      columns:
+          - name: event_id
+            description: A unique id for each occurance of the event
+            tests:
+                - unique
+                - not_null
+
+    - name: heap_fact_data_downloads
+      description: A fact table that pulls event data from the mammoth_pro_key_actions_data_table_download_confirmed Heap event
+      columns:
+          - name: event_id
+            description: A unique id for each occurance of the event
+            tests:
+                - unique
+                - not_null
+
+    - name: heap_fact_pro_key_actions
+      description: A fact table that pulls event data from the all_events Heap table for any event that begins with "mammoth_pro_key_actions"
+      columns:
+          - name: event_id
+            description: A unique id for each occurance of the event
+            tests:
+                - not_null
+      tests:
+        - unique:
+            column_name: "concat(event_id, event_table_name)"
