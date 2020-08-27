@@ -1,4 +1,4 @@
-{{ config(materialized='table', alias='dimension_user') }}
+{{ config(materialized='table', alias='heap_dimension_user') }}
 
 SELECT
     LOWER(user_id) AS user_id,

@@ -1,4 +1,4 @@
-{{ config(materialized='table', alias='dimension_firm') }}
+{{ config(materialized='table', alias='heap_dimension_firm') }}
 
 SELECT
     account_id,
