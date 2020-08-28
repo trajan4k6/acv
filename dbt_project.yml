@@ -32,25 +32,37 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  snowflake_dbt_poc:
-      ############################################
-      # Per current model we would materialise 
-      # everything but presentation as table.
-      ############################################
-      # Applies to all files under models/example/
-      #example:
-      #    materialized: view
-      # Applies to all files under models/l00_source/
-      l00_source:
-          materialized: view
-      # Applies to all files under models/l10_staging/
-      l10_staging:
-          materialized: view
-      # Applies to all files under models/l120_marts/
-      l120_marts:
-          materialized: view
-          preqin:
-          +schema: preqin
-      # Applies to all files under models/l130_presentation/
-          materialized: view
+    incremental_strategy: "merge"
+
+    snowflake_dbt_poc:
+        ############################################
+        # Per current model we would materialise 
+        # everything but presentation as table.
+        ############################################
+        # Applies to all files under models/example/
+        #example:
+        #    materialized: view
+        # Applies to all files under models/l00_source/
+        l00_source:
+            materialized: view
+        # Applies to all files under models/l10_staging/
+        l10_staging:
+            materialized: view
+        # Applies to all files under models/l120_marts/
+        l120_marts:
+            materialized: view
+            preqin:
+            +schema: preqin
+        # Applies to all files under models/l130_presentation/
+            materialized: view
+        heap_poc:
+            fact:
+                enabled: true
+                schema: heap
+            dimension:
+                enabled: true
+                schema: heap    
+        presentation_poc:
+            enabled: true
+            schema: presentation
 

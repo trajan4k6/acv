@@ -1,0 +1,21 @@
+
+version: 2
+
+models:
+    - name: heap_dimension_user
+      description: A dimension table that pulls from the raw Heap users table (one row per user)
+      columns:
+          - name: user_id
+            description: A unique id automatically assigned to each user by Heap
+            tests:
+                - unique
+                - not_null
+
+    - name: heap_dimension_firm
+      description: A dimension table that aggregates user level data from Heap onto the firm level (one row per firm)
+      columns:
+          - name: account_id
+            description: Salesforce account id
+            tests:
+                - unique
+                - not_null

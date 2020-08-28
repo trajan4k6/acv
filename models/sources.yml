@@ -1,0 +1,20 @@
+version: 2
+sources:
+  
+  - name: heap
+    database: DB_DATAEXCHANGE_HEAP
+    schema: HEAP
+    loader: heap
+    tables:
+      - name: _SYNC_INFO
+        loaded_at_field: SYNCED_TO_TIME
+        freshness:
+          warn_after: {count: 24, period: hour}
+          error_after: {count: 48, period: hour}
+      - name: users
+      - name: sessions
+      - name: all_events
+      - name: pageviews
+      - name: mammoth_insights_insights_page_viewed
+      - name: mammoth_pro_key_actions_app_page_viewed
+      - name: mammoth_pro_key_actions_data_table_download_confirmed
