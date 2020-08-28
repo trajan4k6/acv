@@ -58,6 +58,7 @@ SELECT
     contact_name,
     sales_region,
     subscription_status,
+    min(heap_date_created)::date AS first_session_date,
     sum(pageviews) AS pageviews,
     sum(sessions) AS sessions,
     sum(desktop_sessions) AS desktop_sessions,
