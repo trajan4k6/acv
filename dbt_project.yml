@@ -66,3 +66,6 @@ models:
             enabled: true
             schema: presentation
 
+on-run-end:
+    - "{{ grant_select_on_schemas(schemas, target.role) }}"
+    - "{{ grant_select_on_schemas(schemas, 'MAMMOTH') }}"
