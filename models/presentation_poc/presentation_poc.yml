@@ -15,13 +15,13 @@ models:
       description: A table for the sales POC dashboard that summarizes insight asset views by content type/path by user by day
       tests:
         - unique:
-            column_name: "concat(date, contact_id, content_type, path)"
+            column_name: "concat(date, contact_id, account_id, content_type, path)"
 
     - name: presentation_heap_daily_profile_views
       description: A table for the sales POC dashboard that summarizes profile views by app section category, profile type, and profile id by user by day
       tests:
         - unique:
-            column_name: "concat(date, contact_id, app_section_category, profile_type, profile_id)"
+            column_name: "concat(date, contact_id, account_id, app_section_category, nvl(profile_type, ''), nvl(profile_id, ''))"
 
     - name: presentation_heap_daily_user_summary
       description: A table for the sales POC dashboard that summarizes key user metrics by day
