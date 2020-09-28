@@ -32,6 +32,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
+ vars:
+    dbt_run_id: "{{ invocation_id }}"
+
+
     incremental_strategy: "merge"
 
     snowflake_dbt_poc:
@@ -52,7 +56,8 @@ models:
         l120_marts:
             materialized: view
             preqin:
-            +schema: preqin
+            schema: preqin
+            post-hook: "INSERT INTO dbt_sbadcock.log_dbt_model_run_events (model_schema, model_name, event_type, created_at, dbt_run_id) VALUES ('{{ this.schema }}', '{{ this.table }}', 'Start', clock_timestamp(), {{ invocation_id }})"
         # Applies to all files under models/l130_presentation/
             materialized: view
         heap_poc:
@@ -67,5 +72,12 @@ models:
             schema: presentation
 
 on-run-end:
-    - "{{ grant_select_on_schemas(schemas, target.role) }}"
-    - "{{ grant_select_on_schemas(schemas, 'MAMMOTH') }}"
+ #   - "{{ grant_select_on_schemas(schemas, target.role) }}"
+ #   - "{{ grant_select_on_schemas(schemas, 'MAMMOTH') }}"
+  - "INSERT INTO dbt_sbadcock.log_dbt_model_run_events (model_schema, model_name, event_type, created_at, dbt_run_id) VALUES ('{{ this.schema }}', '{{ this.table }}', 'End', clock_timestamp(), {{ invocation_id }})"
+
+on-run-start:
+   #- "INSERT INTO dbt_sbadcock.log_dbt_model_run_events (model_schema, model_name, event_type, created_at, dbt_run_id) VALUES ('{{ this.schema }}', '{{ this.table }}', 'Start', clock_timestamp(), {{ invocation_id }})"
+   # pre-hook: "INSERT INTO meta.log_dbt_model_run_events (model_schema, model_name, event_type, created_at, dbt_run_id) VALUES ('{{ this.schema }}', '{{ this.table }}', 'Start', clock_timestamp(), {{ var('dbt_run_id') }})"
+   - "INSERT INTO meta.log_dbt_model_run_events (model_schema, model_name, event_type, created_at, dbt_run_id) VALUES ('{{ this.schema }}', '{{ this.table }}', 'End', clock_timestamp(), {{ var('dbt_run_id') }})"
+

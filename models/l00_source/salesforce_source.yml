@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  
+  - name: salesforce
+    database: DB_RAW
+    schema: salesforce_rivery_uat
+    ##loader: 
+    tables:
+      - name: user
+        #loaded_at_field: SYNCED_TO_TIME
+        #freshness:
+        #  warn_after: {count: 24, period: hour}
+        #  error_after: {count: 48, period: hour}
+      #- name: account

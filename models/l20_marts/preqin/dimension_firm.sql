@@ -1,20 +1,20 @@
---{{ config(materialized='table') }}
+--{{ config(materialized='view') }}
 
 --{{ config(schema='preqin') }}
-/*
+
 {{
     config(
         materialized='incremental',
         unique_key='FIRM_ID'
     )
 }}
-*/
+
 
 with dimension_firm as (
 select {{ dbt_utils.surrogate_key(
       'FIRM_ID'
   ) }} as DIMENSION_FIRM_KEY
-,Firm_ID														AS FirmId,
+,Firm_ID														AS Firm_Id,
 NULLIF(Firm_Name,'')												AS FirmName,
 
 Firm_Tel  AS Telephone,
@@ -58,8 +58,9 @@ Firm_StaffCount_Mgmt												AS TotalMgmtStaff,
 Firm_StaffCount_Inv													AS TotalInvStaff,
 Total_No_Clients													AS TotalClients,
 NumberAlt_Clients													AS TotalAltClients
-
-from DB_RAW.PREQIN01_FIVETRAN_DBO.tblfirm
+--DB_RAW.PREQIN01_FIVETRAN_DBO.TBLFIRM
+from {{ ref('tblfirm_snapshot') }} F
+WHERE F.dbt_valid_to IS NULL
 )
 
 select *

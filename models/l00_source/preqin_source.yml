@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  
+  - name: preqin
+    database: DB_RAW
+    schema: PREQIN01_FIVETRAN_DBO_DEV
+    ##loader: 
+    tables:
+      - name: tblfirm
+        #loaded_at_field: SYNCED_TO_TIME
+        #freshness:
+        #  warn_after: {count: 24, period: hour}
+        #  error_after: {count: 48, period: hour}
+      - name: tbladdress
