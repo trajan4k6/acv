@@ -1,3 +1,9 @@
 packages:
   - git: "https://github.com/fishtown-analytics/dbt-utils.git" # git URL
     revision: 0.1.21 # tag or branch name
+packages:
+  - package: fishtown-analytics/logging
+    version: 0.4.1
+packages:
+  - git:  "https://github.com/montreal-analytics/dbt-snowflake-utils.git"
+    revision: 0.1.3

@@ -4,7 +4,7 @@ sources:
   
   - name: preqin
     database: DB_RAW
-    schema: PREQIN01_FIVETRAN_DBO_DEV
+    schema: PREQIN01_PROD_RIVERY
     ##loader: 
     tables:
       - name: tblfirm

@@ -4,7 +4,7 @@ sources:
   
   - name: salesforce
     database: DB_RAW
-    schema: salesforce_rivery_uat
+    schema: SALESFORCE_RIVERY
     ##loader: 
     tables:
       - name: user
@@ -12,4 +12,4 @@ sources:
         #freshness:
         #  warn_after: {count: 24, period: hour}
         #  error_after: {count: 48, period: hour}
-      #- name: account
+      - name: account

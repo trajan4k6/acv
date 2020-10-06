@@ -1,19 +1,17 @@
 {% snapshot user_snapshot %}
+  {{ config(
+    target_database = 'db_raw',
+    target_schema = 'salesforce_rivery',
+    unique_key = 'ID',
+    strategy = 'timestamp',
+    updated_at = 'lastmodifieddate'
+  ) }}
 
-{{
-    config(
-      target_database='db_raw',
-      target_schema='salesforce_rivery_uat',
-      unique_key='ID',
-
-      strategy='timestamp',
-      updated_at='lastmodifieddate'
-  
-
-    )
-}}
-
-select * from {{source('salesforce', 'user')}}
-
+  SELECT
+    *
+  FROM
+    {{ source(
+      'salesforce',
+      'user'
+    ) }}
 {% endsnapshot %}
-

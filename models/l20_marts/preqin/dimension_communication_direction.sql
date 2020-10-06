@@ -12,7 +12,7 @@
 
 with dimension_communication_direction as (
 select DISTINCT {{ dbt_utils.surrogate_key(
-      'Comm_Direction'
+      ['Comm_Direction']
   ) }} as dimension_communication_direction_key
 ,Comm_Direction														AS communication_Direction_Name
 
