@@ -58,7 +58,7 @@ SELECT
     CASE
         WHEN profile_type IS NOT NULL THEN split_part(path, '/', 3)
     END AS profile_id
-FROM {{ source('heap', 'mammoth_pro_key_actions_app_page_viewed') }}
+FROM {{ source('heap', 'mammoth_poc_reports_pro_key_actions_app_page_viewed') }}
 
 {% if is_incremental() %}
 
