@@ -46,9 +46,10 @@ SELECT
         WHEN path ILIKE '/dashboard/watchlist%' OR path ILIKE '/discover%targetlists%' THEN 'Target List'
         WHEN path = '/dashboard/alerts' THEN 'Alerts'
         WHEN path = '/dashboard/savedSearch' THEN 'Saved Searches'
-        WHEN path ILIKE '%mybenchmarks%' OR path ILIKE '/dashboard/benchmark/%/custom%' OR path ILIKE '/discoverAnalysis/benchmarks/%/custom' THEN 'My Benchmarks'
+        WHEN path ILIKE '%mybenchmarks%' OR path ILIKE '/dashboard/benchmark/%/custom%' OR path ILIKE '/discoverAnalysis/benchmarks/%/custom' OR path ILIKE '/analysis/benchmarks/privateCapital/custom/%' THEN 'Custom Benchmarks'
         WHEN path = '/analysis/horizonIRRs' OR path ILIKE '%benchmarks%' OR path ILIKE '/discoverAnalysis/benchmarks/%/market%' THEN 'Market Benchmarks'
         WHEN path ILIKE '/discover%' OR path = '/search' THEN 'Search'
+        WHEN path ILIKE '/analysis/leagueTables/%' THEN 'League Tables'
         WHEN path ILIKE '/analysis%' THEN 'Charts'
         WHEN path IN ('/dashboard', '/dashboard/') THEN 'Dashboard Home'
         WHEN path ILIKE '/portfolio%' THEN 'My Portfolio'
@@ -57,7 +58,7 @@ SELECT
     CASE
         WHEN profile_type IS NOT NULL THEN split_part(path, '/', 3)
     END AS profile_id
-FROM {{ source('heap', 'mammoth_pro_key_actions_app_page_viewed') }}
+FROM {{ source('heap', 'mammoth_poc_reports_pro_key_actions_app_page_viewed') }}
 
 {% if is_incremental() %}
 

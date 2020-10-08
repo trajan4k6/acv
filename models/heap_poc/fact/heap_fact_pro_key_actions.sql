@@ -11,9 +11,9 @@ SELECT
     user_id,
     session_id,
     event_table_name,
-    split_part(event_table_name, 'mammoth_pro_key_actions_', 2) AS event_name
+    split_part(event_table_name, 'mammoth_poc_reports_pro_key_actions_', 2) AS event_name
 FROM {{ source('heap', 'all_events') }}
-WHERE event_table_name ILIKE 'mammoth_pro_key_actions%'
+WHERE event_table_name ILIKE 'mammoth_poc_reports_pro_key_actions%'
 
 {% if is_incremental() %}
 

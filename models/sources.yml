@@ -15,6 +15,6 @@ sources:
       - name: sessions
       - name: all_events
       - name: pageviews
-      - name: mammoth_insights_insights_page_viewed
-      - name: mammoth_pro_key_actions_app_page_viewed
-      - name: mammoth_pro_key_actions_data_table_download_confirmed
+      - name: mammoth_poc_reports_insights_insights_page_viewed
+      - name: mammoth_poc_reports_pro_key_actions_app_page_viewed
+      - name: mammoth_poc_reports_pro_key_actions_data_table_download_confirmed

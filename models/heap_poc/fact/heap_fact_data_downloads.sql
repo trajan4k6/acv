@@ -46,15 +46,16 @@ SELECT
         WHEN path ILIKE '/dashboard/watchlist%' OR path ILIKE '/discover%targetlists%' THEN 'Target List'
         WHEN path = '/dashboard/alerts' THEN 'Alerts'
         WHEN path = '/dashboard/savedSearch' THEN 'Saved Searches'
-        WHEN path ILIKE '%mybenchmarks%' OR path ILIKE '/dashboard/benchmark/%/custom%' OR path ILIKE '/discoverAnalysis/benchmarks/%/custom' THEN 'My Benchmarks'
+        WHEN path ILIKE '%mybenchmarks%' OR path ILIKE '/dashboard/benchmark/%/custom%' OR path ILIKE '/discoverAnalysis/benchmarks/%/custom' OR path ILIKE '/analysis/benchmarks/privateCapital/custom/%' THEN 'Custom Benchmarks'
         WHEN path = '/analysis/horizonIRRs' OR path ILIKE '%benchmarks%' OR path ILIKE '/discoverAnalysis/benchmarks/%/market%' THEN 'Market Benchmarks'
         WHEN path ILIKE '/discover%' OR path = '/search' THEN 'Search'
+        WHEN path ILIKE '/analysis/leagueTables/%' THEN 'League Tables'
         WHEN path ILIKE '/analysis%' THEN 'Charts'
         WHEN path IN ('/dashboard', '/dashboard/') THEN 'Dashboard Home'
         WHEN path ILIKE '/portfolio%' THEN 'My Portfolio'
         WHEN path = '/datasupport' THEN 'Support'
     END AS app_section_category
-FROM {{ source('heap', 'mammoth_pro_key_actions_data_table_download_confirmed') }}
+FROM {{ source('heap', 'mammoth_poc_reports_pro_key_actions_data_table_download_confirmed') }}
 WHERE app_section_category IS NOT NULL
 
 {% if is_incremental() %}
