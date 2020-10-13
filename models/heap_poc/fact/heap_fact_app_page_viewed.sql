@@ -57,7 +57,17 @@ SELECT
     END AS app_section_category,
     CASE
         WHEN profile_type IS NOT NULL THEN split_part(path, '/', 3)
-    END AS profile_id
+    END AS profile_id,
+
+    CASE  
+        WHEN profile_type IS NOT NULL THEN
+            CASE WHEN LEN(split_part(path, '/', 4)) = 0 THEN NULL
+            ELSE split_part(path, '/', 4) 
+            END
+        END AS profile_section,
+
+    CASE WHEN path ILIKE '/discover%' THEN split_part(path, '/', 3) END AS discover_section
+
 FROM {{ source('heap', 'mammoth_poc_reports_pro_key_actions_app_page_viewed') }}
 
 {% if is_incremental() %}

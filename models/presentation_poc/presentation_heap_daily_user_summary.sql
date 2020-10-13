@@ -49,6 +49,22 @@ WITH key_actions AS
   FROM {{ ref('heap_fact_data_downloads') }} 
   GROUP BY 1, 2
 )
+,discover AS
+(
+  SELECT
+    user_id,
+    event_time::date AS event_date,
+    count(distinct case when discover_section = 'deals' then event_id end) AS deals_discover,
+    count(distinct case when discover_section = 'funds' then event_id end) AS funds_discover,
+    count(distinct case when discover_section = 'serviceproviders' then event_id end) AS serviceproviders_discover,
+    count(distinct case when discover_section = 'investors' then event_id end) AS investors_discover,
+    count(distinct case when discover_section = 'fundManager' then event_id end) AS fundManager_discover,
+    count(distinct case when discover_section = 'investorNews' then event_id end) AS investorNews_discover,
+    count(distinct case when discover_section = 'assets' then event_id end) AS assets_discover,
+    count(distinct case when discover_section = 'consultants' then event_id end) AS consultants_discover
+  FROM {{ ref('heap_fact_app_page_viewed') }}
+  GROUP BY 1, 2
+)
 SELECT
     sessions.event_date AS date,
     contact_id,
@@ -74,7 +90,15 @@ SELECT
     sum(chart_downloads) AS chart_downloads,
     sum(market_benchmark_downloads) AS market_benchmark_downloads,
     sum(target_list_downloads) AS target_list_downloads,
-    sum(my_benchmark_downloads) AS my_benchmark_downloads
+    sum(my_benchmark_downloads) AS my_benchmark_downloads,
+    sum(deals_discover) AS deals_discover,
+    sum(funds_discover) AS funds_discover,
+    sum(serviceproviders_discover) AS serviceproviders_discover,
+    sum(investors_discover) AS investors_discover,
+    sum(fundManager_discover) AS fundManager_discover,
+    sum(investorNews_discover) AS investorNews_discover,
+    sum(assets_discover) AS assets_discover,
+    sum(consultants_discover) AS consultants_discover
 FROM sessions
   JOIN {{ ref('heap_dimension_user') }} AS users
       ON sessions.user_id = users.user_id
@@ -84,6 +108,9 @@ FROM sessions
   LEFT JOIN data_downloads
       ON sessions.user_id = data_downloads.user_id
         AND sessions.event_date = data_downloads.event_date
+  LEFT JOIN discover
+      ON sessions.user_id = discover.user_id
+        AND sessions.event_date = discover.event_date
 WHERE account_id IS NOT NULL
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8
  
