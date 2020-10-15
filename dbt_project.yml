@@ -51,8 +51,14 @@ models:
         # Applies to all files under models/l120_marts/
         l20_marts:
             materialized: view
+            heap:
+                schema: heap
             preqin:
                 schema: preqin
+            presentation:
+                schema: presentation
+            salesforce:
+                schema: salesforce
         # Applies to all files under models/l130_presentation/
             materialized: view
         heap_poc:
