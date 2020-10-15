@@ -49,7 +49,7 @@ models:
         l10_staging:
             materialized: view
         # Applies to all files under models/l120_marts/
-        l120_marts:
+        l20_marts:
             materialized: view
             preqin:
                 schema: preqin
