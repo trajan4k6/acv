@@ -52,7 +52,7 @@ models:
         l120_marts:
             materialized: view
             preqin:
-            +schema: preqin
+                schema: preqin
         # Applies to all files under models/l130_presentation/
             materialized: view
         heap_poc:
