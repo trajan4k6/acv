@@ -1,0 +1,59 @@
+{{ config(
+    materialized = 'view',
+    unique_key = [],
+    tags = []
+) }}
+
+SELECT '-1' AS DIMENSION_FIRM_KEY, NULL AS CRM_FIRM_ID, NULL FIRM_NAME, NULL SALESFORCE_ACCOUNT_ID, NULL AS ACCOUNT_CLASSIFICATION, NULL AS REGION_NAME, NULL AS REGION_TEAM_NAME, NULL AS DATASOURCE_ID
+UNION
+--1.Primary Firm list from Core
+SELECT F.DIMENSION_FIRM_KEY, TO_CHAR(F.FIRM_ID) AS CRM_FIRM_ID, F.FIRM_NAME, A.ACCOUNT_ID AS SALESFORCE_ACCOUNT_ID, AC.ACCOUNT_CLASSIFICATION, AR.REGION_NAME, ART.REGION_TEAM_NAME, F.DATASOURCE_ID
+FROM {{ ref('preqin_dimension_firm') }} F
+--JOIN TO Salesforce Account Dimension FOR Salesforce mastered attributes
+LEFT
+JOIN {{ ref('salesforce_dimension_account') }} A
+    ON F.DIMENSION_FIRM_KEY = A.CONFORMED_DIMENSION_FIRM_KEY
+LEFT
+JOIN {{ ref('salesforce_dimension_account_classification') }} AC
+    ON A.DIMENSION_ACCOUNT_CLASSIFICATION_KEY = AC.DIMENSION_ACCOUNT_CLASSIFICATION_KEY
+LEFT
+JOIN {{ ref('salesforce_dimension_region') }} AR
+    ON A.DIMENSION_REGION_KEY = AR.DIMENSION_REGION_KEY
+LEFT
+JOIN {{ ref('salesforce_dimension_region_team') }} ART
+    ON A.DIMENSION_REGION_TEAM_KEY = ART.DIMENSION_REGION_TEAM_KEY
+--2 + any Unmapped Salesforce Accounts to Primary\Master Firm
+UNION 
+SELECT A.DIMENSION_ACCOUNT_KEY, TO_CHAR(A.CRM_FIRM_ID), A.ACCOUNT_NAME, A.ACCOUNT_ID, AC.ACCOUNT_CLASSIFICATION, AR.REGION_NAME, ART.REGION_TEAM_NAME, A.DATASOURCE_ID
+FROM {{ ref('salesforce_dimension_account') }} A
+LEFT
+JOIN {{ ref('salesforce_dimension_account_classification') }} AC
+    ON A.DIMENSION_ACCOUNT_CLASSIFICATION_KEY = AC.DIMENSION_ACCOUNT_CLASSIFICATION_KEY
+LEFT
+JOIN {{ ref('salesforce_dimension_region') }} AR
+    ON A.DIMENSION_REGION_KEY = AR.DIMENSION_REGION_KEY
+LEFT
+JOIN {{ ref('salesforce_dimension_region_team') }} ART
+    ON A.DIMENSION_REGION_TEAM_KEY = ART.DIMENSION_REGION_TEAM_KEY
+
+WHERE 
+    CONFORMED_DIMENSION_FIRM_KEY = '-1'
+--3 + any Unmapped Heap Account to Primary\Master Firm
+UNION
+SELECT F.DIMENSION_FIRM_KEY,TO_CHAR(F.LEGACY_FIRM_ID), F.FIRM_NAME,  F.ACCOUNT_ID, AC.ACCOUNT_CLASSIFICATION, AR.REGION_NAME, ART.REGION_TEAM_NAME, F.DATASOURCE_ID
+FROM {{ ref('heap_dimension_firm_integrated') }} F
+LEFT
+JOIN {{ ref('salesforce_dimension_account') }}  A
+    ON F.SALESFORCE_DIMENSION_ACCOUNT_KEY = A.DIMENSION_ACCOUNT_KEY
+LEFT
+JOIN {{ ref('salesforce_dimension_account_classification') }} AC
+    ON A.DIMENSION_ACCOUNT_CLASSIFICATION_KEY = AC.DIMENSION_ACCOUNT_CLASSIFICATION_KEY
+LEFT
+JOIN {{ ref('salesforce_dimension_region') }} AR
+    ON A.DIMENSION_REGION_KEY = AR.DIMENSION_REGION_KEY
+LEFT
+JOIN {{ ref('salesforce_dimension_region_team') }} ART
+    ON A.DIMENSION_REGION_TEAM_KEY = ART.DIMENSION_REGION_TEAM_KEY
+
+WHERE 
+    F.CONFORMED_DIMENSION_FIRM_KEY = '-1'

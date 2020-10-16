@@ -18,3 +18,22 @@ sources:
       - name: mammoth_poc_reports_insights_insights_page_viewed
       - name: mammoth_poc_reports_pro_key_actions_app_page_viewed
       - name: mammoth_poc_reports_pro_key_actions_data_table_download_confirmed
+
+  - name: preqin
+    database: DB_RAW
+    schema: PREQIN01_PROD_RIVERY
+    loader: preqin
+    tables:
+      - name: tblFirm
+      - name: tblParentFirm
+      - name: tblFirm_Type
+      - name: tblFirm_Address
+
+  - name: acumatica
+    database: DB_RAW
+    schema: SALESFORCE_RIVERY
+    loader: acumatica
+    tables:
+      - name: account
+      - name: user
+ 
