@@ -7,7 +7,7 @@ SELECT
   REGION_C AS REGION_NAME,
   2 AS DATASOURCE_ID
 FROM
-    {{ source('acumatica', 'account') }} a
+    {{ source('salesforce', 'account') }} a
 WHERE 
     REGION_C IS NOT NULL
 GROUP BY REGION_C

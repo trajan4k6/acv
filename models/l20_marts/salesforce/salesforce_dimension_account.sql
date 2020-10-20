@@ -15,7 +15,7 @@ SELECT
   COALESCE(FIRMMASTER.dimension_firm_key, '-1') AS CONFORMED_DIMENSION_FIRM_KEY,
   2 AS DATASOURCE_ID
 FROM
-    {{ source('acumatica', 'account') }} a
+    {{ source('salesforce', 'account') }} a
     
 LEFT JOIN {{ ref('preqin_dimension_firm') }} FirmMaster
     ON a.CRM_FIRM_ID_C = TO_CHAR(FirmMaster.FIRM_ID)
