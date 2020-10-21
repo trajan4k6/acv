@@ -6,7 +6,7 @@ SELECT
     ) }} AS DIMENSION_REGION_TEAM_KEY,
   LEAD_TEAM_C AS REGION_TEAM_NAME
 FROM
-    {{ source('acumatica', 'account') }} a
+    {{ source('salesforce', 'account') }} a
 WHERE 
     LEAD_TEAM_C IS NOT NULL
 GROUP BY LEAD_TEAM_C

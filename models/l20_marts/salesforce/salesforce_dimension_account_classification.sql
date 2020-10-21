@@ -7,7 +7,7 @@ SELECT
   CLASSIFICATION_C                 AS ACCOUNT_CLASSIFICATION,
   2 AS DATASOURCE_ID
 FROM
-    {{ source('acumatica', 'account') }} a
+    {{ source('salesforce', 'account') }} a
 WHERE 
     CLASSIFICATION_C IS NOT NULL
 GROUP BY CLASSIFICATION_C
