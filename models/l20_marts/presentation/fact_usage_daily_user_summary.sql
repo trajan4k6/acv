@@ -8,9 +8,11 @@ SELECT
 CAST(YEAR((Fact.DATE::DATE)) || RIGHT('0' || MONTH((Fact.DATE::DATE)), 2) || RIGHT('0' || DAYOFMONTH((Fact.DATE::DATE)), 2) AS INT) AS DATE_KEY,
 CASE WHEN U.conformed_dimension_individual_key = '-1' THEN U.dimension_user_key ELSE COALESCE(U.conformed_dimension_individual_key,'-1') END DIMENSION_INDIVIDUAL_KEY,
 CASE WHEN F.conformed_dimension_firm_key = '-1' THEN F.dimension_firm_key ELSE COALESCE(F.conformed_dimension_firm_key,'-1') END DIMENSION_FIRM_KEY,
+/*
 COALESCE(A.DIMENSION_ACCOUNT_CLASSIFICATION_KEY,'-1') AS DIMENSION_ACCOUNT_CLASSIFICATION_KEY,
 COALESCE(A.DIMENSION_REGION_TEAM_KEY, '-1') AS DIMENSION_REGION_TEAM_KEY,
 COALESCE(A.DIMENSION_REGION_KEY, '-1')      AS DIMENSION_REGION_KEY,
+*/
 NVL(PAGEVIEWS, 0)                           AS PAGEVIEWS,
 NVL(SESSIONS, 0)                            AS SESSIONS,
 NVL(DESKTOP_SESSIONS, 0)                    AS DESKTOP_SESSIONS,
