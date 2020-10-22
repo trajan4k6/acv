@@ -9,6 +9,7 @@ SELECT
             from = ref('preqin_fact_usage_data_feeds'),
             except = []
         ) }},*/
-    Fact.*
+    Fact.*,
+    1 AS PAGELOG_COUNT
 FROM {{ ref('preqin_fact_usage_data_feeds') }} Fact
 
