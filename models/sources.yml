@@ -55,17 +55,3 @@ sources:
     loader: rivery
     tables:
       - name: net_promoter_score
- 
-  - name: acumatica
-    database: DB_RAW
-    schema: ACUMATICA
-    loader: alteryx
-    tables:
-      - name: book_of_business
-
-  - name: feedbackify
-    database: DB_RAW
-    schema: ALTERYX
-    loader: rivery
-    tables:
-      - name: net_promoter_score
