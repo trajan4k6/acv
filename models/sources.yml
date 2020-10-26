@@ -28,6 +28,9 @@ sources:
       - name: tblParentFirm
       - name: tblFirm_Type
       - name: tblFirm_Address
+      - name: STG_Data_Delivery_Data_Feeds_PageLogs
+      - name: tblContactFirm
+      - name: tblContact
 
   - name: salesforce
     database: DB_RAW
@@ -36,6 +39,22 @@ sources:
     tables:
       - name: account
       - name: user
+      - name: contact
+      - name: contact_test
+ 
+  - name: acumatica
+    database: DB_RAW
+    schema: ACUMATICA
+    loader: alteryx
+    tables:
+      - name: book_of_business
+
+  - name: feedbackify
+    database: DB_RAW
+    schema: ALTERYX
+    loader: rivery
+    tables:
+      - name: net_promoter_score
  
   - name: acumatica
     database: DB_RAW
