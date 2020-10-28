@@ -9,7 +9,8 @@ SELECT
         ParentFirm_Name,
         ''
     ) AS Parent_Firm_Name,
-    ft.DisplayName Parent_Firm_Type
+    ft.DisplayName Parent_Firm_Type,
+    1 AS Datasource_ID
 FROM {{ source('preqin', 'tblParentFirm') }} pf
 LEFT
 JOIN {{ source('preqin', 'tblFirm_Type') }} ft
