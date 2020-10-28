@@ -51,6 +51,10 @@ models:
         # Applies to all files under models/l120_marts/
         l20_marts:
             materialized: view
+            acumatica:
+                schema: acumatica
+            feedbackify:
+                schema: feedbackify
             heap:
                 schema: heap
             preqin:

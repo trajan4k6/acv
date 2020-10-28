@@ -6,10 +6,13 @@
 
 SELECT 
 CAST(YEAR((Fact.DATE::DATE)) || RIGHT('0' || MONTH((Fact.DATE::DATE)), 2) || RIGHT('0' || DAYOFMONTH((Fact.DATE::DATE)), 2) AS INT) AS DATE_KEY,
+CASE WHEN U.conformed_dimension_individual_key = '-1' THEN U.dimension_user_key ELSE COALESCE(U.conformed_dimension_individual_key,'-1') END DIMENSION_INDIVIDUAL_KEY,
 CASE WHEN F.conformed_dimension_firm_key = '-1' THEN F.dimension_firm_key ELSE COALESCE(F.conformed_dimension_firm_key,'-1') END DIMENSION_FIRM_KEY,
+/*
 COALESCE(A.DIMENSION_ACCOUNT_CLASSIFICATION_KEY,'-1') AS DIMENSION_ACCOUNT_CLASSIFICATION_KEY,
 COALESCE(A.DIMENSION_REGION_TEAM_KEY, '-1') AS DIMENSION_REGION_TEAM_KEY,
 COALESCE(A.DIMENSION_REGION_KEY, '-1')      AS DIMENSION_REGION_KEY,
+*/
 NVL(PAGEVIEWS, 0)                           AS PAGEVIEWS,
 NVL(SESSIONS, 0)                            AS SESSIONS,
 NVL(DESKTOP_SESSIONS, 0)                    AS DESKTOP_SESSIONS,
@@ -25,7 +28,15 @@ NVL(PROFILE_DOWNLOADS, 0)                   AS PROFILE_DOWNLOADS,
 NVL(CHART_DOWNLOADS, 0)                     AS CHART_DOWNLOADS,
 NVL(MARKET_BENCHMARK_DOWNLOADS, 0)          AS MARKET_BENCHMARK_DOWNLOADS,
 NVL(TARGET_LIST_DOWNLOADS, 0)               AS TARGET_LIST_DOWNLOADS,
-NVL(MY_BENCHMARK_DOWNLOADS, 0)              AS MY_BENCHMARK_DOWNLOADS
+NVL(MY_BENCHMARK_DOWNLOADS, 0)              AS MY_BENCHMARK_DOWNLOADS,
+NVL(DEALS_DISCOVER, 0)                      AS DEALS_DISCOVER,
+NVL(FUNDS_DISCOVER, 0)                      AS FUNDS_DISCOVER,
+NVL(SERVICEPROVIDERS_DISCOVER, 0)           AS SERVICEPROVIDERS_DISCOVER,
+NVL(INVESTORS_DISCOVER, 0)                  AS INVESTORS_DISCOVER,
+NVL(FUNDMANAGER_DISCOVER, 0)                AS FUNDMANAGER_DISCOVER,
+NVL(INVESTORNEWS_DISCOVER, 0)               AS INVESTORNEWS_DISCOVER,
+NVL(ASSETS_DISCOVER, 0)                     AS ASSETS_DISCOVER,
+NVL(CONSULTANTS_DISCOVER, 0)                AS CONSULTANTS_DISCOVER
 FROM {{ ref('presentation_heap_daily_user_summary') }} Fact
 LEFT
 JOIN {{ ref('heap_dimension_firm_integrated') }} F
@@ -33,3 +44,6 @@ JOIN {{ ref('heap_dimension_firm_integrated') }} F
 LEFT
 JOIN {{ ref('salesforce_dimension_account') }} A
     ON F.salesforce_dimension_account_key = A.dimension_account_key
+LEFT
+JOIN {{ ref('heap_dimension_user_integrated') }} U
+    ON Fact.Contact_ID = U.Contact_ID

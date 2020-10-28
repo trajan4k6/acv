@@ -1,5 +1,7 @@
 {{ config(materialized='table') }}
 
+
+
 SELECT
     {{ dbt_utils.surrogate_key(
         [2,'ID']
@@ -12,10 +14,12 @@ SELECT
   COALESCE(rt.DIMENSION_REGION_TEAM_KEY, '-1')  AS DIMENSION_REGION_TEAM_KEY,
   COALESCE(r.DIMENSION_REGION_KEY, '-1') AS DIMENSION_REGION_KEY,
   COALESCE(ac.DIMENSION_ACCOUNT_CLASSIFICATION_KEY, '-1') AS DIMENSION_ACCOUNT_CLASSIFICATION_KEY,
-  COALESCE(FIRMMASTER.dimension_firm_key, '-1') AS CONFORMED_DIMENSION_FIRM_KEY,
+--Dedup CRM_Firm_Id mapping SaleforceAccount(M)toPreqinFirm(1)
+  CASE WHEN a.createddate = LAST_VALUE(createddate) OVER (PARTITION BY CRM_FIRM_ID_C ORDER BY CREATEDDATE) THEN FIRMMASTER.dimension_firm_key ELSE '-1' END AS CONFORMED_DIMENSION_FIRM_KEY,
+  CAST(YEAR((a.CREATEDDATE::DATE)) || RIGHT('0' || MONTH((a.CREATEDDATE::DATE)), 2) || RIGHT('0' || DAYOFMONTH((a.CREATEDDATE::DATE)), 2) AS INT) AS CREATED_DATE_KEY,
   2 AS DATASOURCE_ID
 FROM
-    {{ source('acumatica', 'account') }} a
+    {{ source('salesforce', 'account') }} a
     
 LEFT JOIN {{ ref('preqin_dimension_firm') }} FirmMaster
     ON a.CRM_FIRM_ID_C = TO_CHAR(FirmMaster.FIRM_ID)
