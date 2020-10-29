@@ -20,4 +20,4 @@ LEFT JOIN {{ ref('feedbackify_dimension_os') }} o
     ON n.os = o.os
 
 LEFT JOIN {{ ref('feedbackify_dimension_country') }} r
-    ON n.trim(trim(REGEXP_SUBSTR(location,'\\(([^)]*)\\)'),'('),')') = r.country_name
+    ON trim(trim(REGEXP_SUBSTR(n.location,'\\(([^)]*)\\)'),'('),')') = r.country_name
