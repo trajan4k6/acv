@@ -8,23 +8,25 @@ WITH country_map AS (
 
 country_transform AS (
         SELECT distinct
-            decode(country,null,region_name,country)  as country
+            decode(country,null,region_name,country)  as country_rename
             FROM country_map),
 
 country_rename AS (
         SELECT 
-            case when country = 'United States' then 'United States of America'
-            when country = 'Russian Federation' then 'Russia'
-            when country = 'Korea, Republic of' then 'South Korea'
-            else country
-            end as country
+            case when country_rename = 'United States' then 'United States of America'
+            when country_rename = 'Russian Federation' then 'Russia'
+            when country_rename = 'Korea, Republic of' then 'South Korea'
+            else country_rename
+            end as country,
+            country_rename
         FROM country_transform)
 
 SELECT 
             {{ dbt_utils.surrogate_key(
-                [4,'country']
+                [4,'country_rename']
             ) }}                          as dimension_country_key,
             country                       as country_name,
+            country_rename,
             5                             as datasource_id
 FROM 
 country_rename 
