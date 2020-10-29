@@ -22,7 +22,8 @@ renamed AS (
         percent_of_list_price,
         sum_bob_gbp,
         implied_value,
-        management_start        as management_start_date
+        management_start        as management_start_date,
+        as_at_date
 
     FROM source
 
@@ -33,8 +34,9 @@ final AS (
     SELECT 
     *,
     case
-        when asset_class = '3rdPartyPlatformFee'                        then 'Private Capital'
-        when asset_class = 'API-Cashflow'                               then 'Private Capital'
+        when asset_class = '3rdPartyPlatformFee'                        then '3rd Party Platform Fee'
+        --Alex Pang to resolve at source
+        --when asset_class = 'API-Cashflow'                               then 'API Cashflow'
         when asset_class = 'API-HedgeFund'                              then 'Hedge Funds'
         when asset_class = 'API-Infrastructure'                         then 'Infrastructure'
         when asset_class = 'API-NaturalResources'                       then 'Natural Resources'
@@ -62,15 +64,18 @@ final AS (
         when asset_class = 'DataFeed-VentureCapital'                    then 'Venture Capital'
         when asset_class = 'HedgeFunds'                                 then 'Hedge Funds'
         when asset_class = 'IO'                                         then 'Infrastructure'
-        when asset_class = 'Mixed'                                      then 'Private Capital'
+        -- Alex Pang to resolve at source.
+        --when asset_class = 'Mixed'                                      then 'Private Capital'
         when asset_class = 'NRO'                                        then 'Natural Resources'
         when asset_class = 'PECF'                                       then 'Private Equity'		
 		when asset_class = 'PrivateDebt'                                then 'Private Debt'
         when asset_class = 'PrivateEquity'                              then 'Private Equity'
         when asset_class = 'RealEstate'                                 then 'Real Estate'
         when asset_class = 'Secondaries'                                then 'Secondaries'
-        when asset_class = 'SpecialProjects'                            then 'Private Capital'
+        when asset_class = 'SpecialProjects'                            then 'Special Projects'
         when asset_class = 'VentureCapital'                             then 'Venture Capital'
+        --added 281020
+        else asset_class
     end as asset_class_map,
       
     case when product like 'API%'  then 'Data Delivery'
