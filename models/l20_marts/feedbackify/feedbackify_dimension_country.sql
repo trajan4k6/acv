@@ -23,7 +23,7 @@ country_rename AS (
 SELECT 
             {{ dbt_utils.surrogate_key(
                 [4,'country']
-            ) }}                          as dimension_region_key,
+            ) }}                          as dimension_country_key,
             country                       as country_name,
             5                             as datasource_id
 FROM 
