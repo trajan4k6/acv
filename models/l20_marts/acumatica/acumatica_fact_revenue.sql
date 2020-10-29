@@ -12,7 +12,7 @@ WITH revenue AS (
        coalesce(ac.dimension_asset_class_key,'-1')    																																 as dimension_asset_class_key,
        coalesce(r.dimension_region_key,'-1')    																																	 as dimension_region_key,
        coalesce(p.dimension_product_key,'-1')    																																	 as dimension_product_key,
-       coalesce(dac.dimension_account_classification_key,'-1')    																													 as dimension_account_classification_key,
+       coalesce(dac.dimension_account_classification_key,'-1')    																													 as dimension_account_classification_key
 
     FROM 
         {{ ref('stg_acumatica_book_of_business') }} a
