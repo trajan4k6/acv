@@ -4,7 +4,7 @@ with date_spine as
 {{ dbt_utils.date_spine(
     datepart="day",
     start_date="'2018-01-01'",
-    end_date="dateadd(month, 1, date_trunc('month', getdate()))"
+    end_date="dateadd(year, 1, date_trunc('month', getdate()))"
    )
 }}
 )
