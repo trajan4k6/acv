@@ -3,6 +3,7 @@
 WITH app_pageviews AS
 (
     SELECT 
+        identity,
         contact_id,
         account_id,
         contact_name,
@@ -24,6 +25,7 @@ WITH app_pageviews AS
 )
 SELECT
     event_time::date AS date,
+    identity,
     contact_id,
     account_id,
     firm_name,
@@ -36,5 +38,5 @@ SELECT
     profile_section,
     count(distinct event_id) AS profile_view_count
 FROM app_pageviews
-GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
  

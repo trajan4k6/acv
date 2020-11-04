@@ -67,6 +67,7 @@ WITH key_actions AS
 )
 SELECT
     sessions.event_date AS date,
+    identity,
     contact_id,
     account_id,
     firm_name,
@@ -112,5 +113,5 @@ FROM sessions
       ON sessions.user_id = discover.user_id
         AND sessions.event_date = discover.event_date
 WHERE account_id IS NOT NULL
-GROUP BY 1, 2, 3, 4, 5, 6, 7, 8
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9
  
