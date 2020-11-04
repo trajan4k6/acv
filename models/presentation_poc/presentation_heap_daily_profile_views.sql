@@ -20,8 +20,11 @@ WITH app_pageviews AS
     FROM {{ ref('heap_fact_app_page_viewed') }} AS app_page_viewed
     JOIN {{ ref('heap_dimension_user') }} AS users
         ON app_page_viewed.user_id = users.user_id
-    WHERE account_id IS NOT NULL
+   /* WHERE account_id IS NOT NULL
         AND app_section_category IS NOT NULL
+    */
+    WHERE app_section_category IS NOT NULL
+
 )
 SELECT
     event_time::date AS date,
