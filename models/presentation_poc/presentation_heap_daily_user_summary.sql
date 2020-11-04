@@ -112,6 +112,7 @@ FROM sessions
   LEFT JOIN discover
       ON sessions.user_id = discover.user_id
         AND sessions.event_date = discover.event_date
-WHERE account_id IS NOT NULL
+--WHERE 
+--account_id IS NOT NULL
 GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9
  
