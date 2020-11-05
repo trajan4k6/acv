@@ -63,6 +63,6 @@ JOIN heap_contact U
     ON Fact.Contact_ID = U.Contact_ID
 */
 LEFT
-JOIN {{ ref('heap_dimension_user_integrated') }} U
+JOIN heap_identity U
     ON Fact.identity = U.identity
 GROUP BY 1, 2, 3
