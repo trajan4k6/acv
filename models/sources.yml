@@ -52,6 +52,6 @@ sources:
   - name: feedbackify
     database: DB_RAW
     schema: ALTERYX_FINANCE
-    loader: rivery
+    loader: alteryx
     tables:
       - name: net_promoter_score
