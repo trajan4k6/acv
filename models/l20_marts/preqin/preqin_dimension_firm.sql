@@ -11,7 +11,7 @@ SELECT
     ) AS firm_name,
     ft.DisplayName Firm_Type,
     NVL(f.firm_status, FALSE) Is_Active,
-    pf.dimension_parent_firm_key, ---COALESCE(pf.dimension_parent_firm_key, '-3') AS dimension_parent_firm_key,
+    COALESCE(pf.dimension_parent_firm_key, '-2') AS dimension_parent_firm_key,
     1 AS Datasource_ID
 FROM {{ source('preqin', 'tblFirm') }} f
 LEFT
