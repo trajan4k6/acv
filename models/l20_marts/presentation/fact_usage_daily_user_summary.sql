@@ -4,16 +4,6 @@
     tags = []
 ) }}
 
---Dedup Contact_ID mapping Heap.User_Id(M)Contact_Id(1)
-/*WITH heap_contact_rank AS (
-SELECT *, ROW_NUMBER() OVER (PARTITION BY CONTACT_ID ORDER BY HEAP_LAST_MODIFIED DESC) AS RN
-FROM {{ ref('heap_dimension_user_integrated') }}
-),
-heap_contact AS (
-    SELECT * FROM heap_contact_rank WHERE RN=1
-)
-*/
-
 --Dedup Identity mapping Heap.Identity(M)Contactfirm_id(1)
 WITH heap_identity_rank AS (
 SELECT *, ROW_NUMBER() OVER (PARTITION BY Identity ORDER BY HEAP_LAST_MODIFIED DESC) AS RN
@@ -58,10 +48,6 @@ JOIN {{ ref('heap_dimension_firm_integrated') }} F
 LEFT
 JOIN {{ ref('salesforce_dimension_account') }} A
     ON F.salesforce_dimension_account_key = A.dimension_account_key
-/*LEFT
-JOIN heap_contact U
-    ON Fact.Contact_ID = U.Contact_ID
-*/
 LEFT
 JOIN heap_identity U
     ON Fact.identity = U.identity
