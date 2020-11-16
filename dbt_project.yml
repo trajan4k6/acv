@@ -48,6 +48,8 @@ models:
         # Applies to all files under models/l10_staging/
         l10_staging:
             materialized: view
+            stg_acumatica:
+                schema: acumatica
         # Applies to all files under models/l120_marts/
         l20_marts:
             materialized: view
