@@ -4,7 +4,7 @@
     ) 
 }}
 
-SELECT 
+SELECT DISTINCT
 CAST(YEAR((GETDATE())) || RIGHT('0' || MONTH((GETDATE())), 2) || RIGHT('0' || DAYOFMONTH((GETDATE())), 2) AS INT) AS DATE_KEY,
 COALESCE(ind.dimension_individual_key, '-1')  AS DIMENSION_INDIVIDUAL_KEY,
 COALESCE(firm.dimension_firm_key, '-1')  AS DIMENSION_FIRM_KEY,
