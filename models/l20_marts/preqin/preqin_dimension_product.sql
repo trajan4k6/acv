@@ -13,6 +13,7 @@ SELECT
 ,AccessLevel AS Access_Level
 ,Free AS Is_Free
 ,COALESCE(AC.dimension_asset_class_key, '-2')  AS DIMENSION_ASSET_CLASS_KEY ---2 = N/A
+,1 AS Datasource_ID
 FROM {{ source('preqin', 'tblpei_product') }} p
 LEFT
 JOIN {{ ref('preqin_dimension_asset_class') }} ac
