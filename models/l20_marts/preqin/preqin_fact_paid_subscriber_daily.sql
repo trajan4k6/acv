@@ -26,7 +26,7 @@ JOIN {{ ref('preqin_dimension_firm') }} firm
     ON cf.firm_id = firm.FIRM_ID
 LEFT
 JOIN {{ ref('preqin_dimension_product') }} prod
-    ON us.product_id = p.product_id
+    ON p.product_id = prod.product_id
 
 WHERE
     p.free = 0
