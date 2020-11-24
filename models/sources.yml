@@ -42,8 +42,7 @@ sources:
     tables:
       - name: account
       - name: user
-      - name: contact
-      - name: contact_test
+      - name: contact 
  
   - name: acumatica
     database: DB_RAW
