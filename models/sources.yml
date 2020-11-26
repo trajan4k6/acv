@@ -34,6 +34,7 @@ sources:
       - name: tblpei_product
       - name: tbluser_details
       - name: tbluser_Subscription
+      - name: tblcurrency_rates_history
 
   - name: salesforce
     database: DB_RAW
