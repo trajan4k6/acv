@@ -31,6 +31,9 @@ sources:
       - name: STG_Data_Delivery_Data_Feeds_PageLogs
       - name: tblContactFirm
       - name: tblContact
+      - name: tblpei_product
+      - name: tbluser_details
+      - name: tbluser_Subscription
 
   - name: salesforce
     database: DB_RAW
@@ -39,8 +42,7 @@ sources:
     tables:
       - name: account
       - name: user
-      - name: contact
-      - name: contact_test
+      - name: contact 
  
   - name: acumatica
     database: DB_RAW
