@@ -44,6 +44,7 @@ sources:
       - name: account
       - name: user
       - name: contact 
+      - name: competitor__c
  
   - name: acumatica
     database: DB_RAW

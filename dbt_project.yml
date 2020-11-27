@@ -55,7 +55,9 @@ models:
             stg_acumatica:
                 schema: acumatica
             stg_preqin:
-                +materialized: ephemeral
+                materialized: ephemeral
+            stg_salesforce:
+                materialized: ephemeral
         # Applies to all files under models/l120_marts/
         l20_marts:
             materialized: view
