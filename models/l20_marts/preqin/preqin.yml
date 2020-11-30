@@ -1,0 +1,35 @@
+version: 2
+
+models:
+    - name: preqin_bridge_firm_to_address
+      description: A relationship table from Preqin CRM that joins Firm to Firm Address.  The Firm's primary address is defined on this table.
+ 
+    - name: preqin_dimension_asset_class
+      description: A hard coded list of Asset Classes maintained in the DBT pipeline.
+    
+    - name: preqin_dimension_firm_address
+      description: Firm address table from Preqin CRM.
+
+    - name: preqin_dimension_firm
+      description: The master list of Firms from Preqin CRM.
+      columns:
+          - name: firm_category
+            description: The mapping of Firm Type to Firm Category.  The mapping is loaded (seeded) separately into the DBT pipeline. 
+          - name: aum_usd
+            description: The total (USD mn) of all funds managed by the Firm. 
+
+    - name: preqin_dimension_individual
+      description: The master list of contact firm records from Preqin CRM.
+
+    - name: preqin_dimension_parent_firm
+      description:  Preqin's parent firm list as used for Revenue and Sales reporting.  
+
+    - name: preqin_dimension_product
+      description:  The master list of Preqin's subscription products. 
+
+    - name: preqin_fact_paid_subscriber_daily
+      description:  Fact table capturing the daily snapshot of paid subscribers to Preqin's services.
+
+    - name: preqin_fact_usage_data_feeds
+      description:  Fact table capturing activity on the Pro Feed end points.  The activity is being captured on the Preqin CRM page log table.
+  

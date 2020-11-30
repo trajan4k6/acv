@@ -1,7 +1,7 @@
 {{ config(
     materialized = 'view',
     unique_key = [],
-    tags = []
+    tags = ["firm"]
 ) }}
 
 with current_paid_firm AS (
