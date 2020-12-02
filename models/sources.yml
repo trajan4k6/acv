@@ -2,6 +2,8 @@ version: 2
 sources:
   
   - name: heap
+    description: Heap is a product analytics platform that Preqin uses to provide a complete dataset 
+                of user behavior.
     database: DB_DATAEXCHANGE_HEAP
     schema: HEAP
     loader: heap
@@ -20,6 +22,7 @@ sources:
       - name: mammoth_poc_reports_pro_key_actions_data_table_download_confirmed
 
   - name: preqin
+    description: Preqin CRM platform, also referred to as the server it runs on Preqin01.
     database: DB_RAW
     schema: PREQIN01_PROD_RIVERY
     loader: rivery
@@ -33,6 +36,7 @@ sources:
       - name: tblContact
 
   - name: salesforce
+    description: Salesforce CRM platform.
     database: DB_RAW
     schema: SALESFORCE_RIVERY
     loader: rivery
@@ -43,15 +47,22 @@ sources:
       - name: contact_test
  
   - name: acumatica
+    description: ERP system. Source of Book of Business etc..
     database: DB_RAW
     schema: ALTERYX_FINANCE
     loader: alteryx
     tables:
       - name: book_of_business
+        description: Loaded into Snowflake manually monthly from an Alteryx workflow that 
+                    uses Book of Business data from Acumatica with manual adjustments by 
+                    Finance / Revops.
 
   - name: feedbackify
+    description: Website feedback solution used by Preqin to gather NPS (Net Promoter Score).
     database: DB_RAW
     schema: ALTERYX_FINANCE
     loader: alteryx
     tables:
       - name: net_promoter_score
+        description: Loaded into Snowflake manually monthly from an Alteryx workflow that 
+                    connects to Feedbackify to get a csv export of all NPS.

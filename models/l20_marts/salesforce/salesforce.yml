@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: salesforce_dimension_account_classification
+    description: A dimension table containing the account classification attributes from Salesforce.
+
+  - name: salesforce_dimension_account
+    description: A dimension table containing the account attributes from Salesforce.
+    columns:
+      - name: conformed_dimension_firm_key
+        description: Dedupe CRM_Firm_Id mapping SaleforceAccount(M)toPreqinFirm(1)
+  
+  - name: salesforce_dimension_contact
+    description: A dimension table containing the contact attributes from Salesforce mapping to an 
+                Individual and a Firm.
+
+  - name: salesforce_dimension_region_team
+    description: A dimension table containing the accounts region team attributes from Salesforce.
+    
+  - name: salesforce_dimension_region
+    description: A dimension table containing the accounts region attributes from Salesforce.
