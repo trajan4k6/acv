@@ -1,0 +1,8 @@
+version: 2
+models:
+  - name: heap_dimension_firm_integrated
+    description: An integrated dimension table for Heap to Salesforce CRM.
+    
+  - name: heap_dimension_user_integrated
+    description: An integrated dimension table for Heap to Salesforce CRM.
+  

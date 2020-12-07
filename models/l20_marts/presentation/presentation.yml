@@ -1,0 +1,34 @@
+version: 2
+models:
+  - name: dimension_account_classification
+    description: Conformed Account Classification dimension table with Salesforce CRM being the Master.
+  
+  - name: dimension_asset_class
+    description: Conformed Asset Class dimension with Preqin CRM being the master.
+
+  - name: dimension_date
+    description: Conformed date dimension table create using dbt_utils package.
+
+  - name: dimension_firm
+    description: Conformed Firm dimension table with Preqin CRM. being the Master.
+
+  - name: dimension_individual
+    description: Conformed contact dimension with the master being from Preqin CRM.
+
+  - name: dimension_region_team
+    description: Conformed Region Team dimension with the master being from Salesforce CRM.
+    
+  - name: dimension_region
+    description: Conformed Region dimension with the master being from Preqin CRM.
+
+  - name: fact_revenue
+    description: Fact table containing the Book Of Business Revenue.
+
+  - name: fact_usage_daily_profile_views
+    description: Fact table providing an aggregated profile view count from Heap.
+
+  - name: fact_usage_daily_user_summary
+    description: Fact table containing various daily metrics sourced from Heap.
+
+  - name: fact_usage_data_feeds
+    description: Fact table containing Page Log activity metrics from Preqin Pro.

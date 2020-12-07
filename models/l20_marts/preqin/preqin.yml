@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: preqin_dimension_asset_class
+    description: A dimension table containing the Preqin CRM asset classes.
+    columns:
+      - name: asset_class_short_name
+        description: '{{ doc("asset_class") }}'
+
+  - name: preqin_dimension_firm
+    description: A dimension table containing the firms from Preqin CRM.
+  
+  - name: preqin_dimension_individual
+    description: A dimension table containing an individuals contact data at Firm level from Preqin CRM.
+  
+  - name: preqin_dimension_parent_firm
+    description: A dimension table containing the parent firm of a firm from Preqin CRM.
+  
+  - name: preqin_fact_usage_data_feeds
+    description: A Fact table containing the Data Feed Page Logs from Preqin Pro.
