@@ -39,3 +39,12 @@ models:
       tests:
         - unique:
             column_name: "concat(event_id, event_table_name)"
+
+    - name: heap_fact_profile_page_viewed
+      description: A fact table that pulls event data from the custom "Pro Profile - Profile Viewed" event in Heap
+      columns:
+          - name: event_id
+            description: A unique id for each occurance of the event
+            tests:
+                - unique
+                - not_null

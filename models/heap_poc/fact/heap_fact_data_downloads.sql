@@ -54,9 +54,10 @@ SELECT
         WHEN path IN ('/dashboard', '/dashboard/') THEN 'Dashboard Home'
         WHEN path ILIKE '/portfolio%' THEN 'My Portfolio'
         WHEN path = '/datasupport' THEN 'Support'
+        ELSE 'Other'
     END AS app_section_category
 FROM {{ source('heap', 'mammoth_poc_reports_pro_key_actions_data_table_download_confirmed') }}
-WHERE app_section_category IS NOT NULL
+WHERE 1 = 1
 
 {% if is_incremental() %}
 
