@@ -61,6 +61,6 @@ WHERE split_part(path, '/', 2) IN ('deal', 'serviceprovider', 'investmentconsult
 {% if is_incremental() %}
 
   -- this filter will only be applied on an incremental run
-  where event_time > (select max(event_time) from {{ this }})
+  and event_time > (select max(event_time) from {{ this }})
 
 {% endif %}
