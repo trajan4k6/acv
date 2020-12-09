@@ -24,6 +24,10 @@ clean-targets:         # directories to be removed by `dbt clean`
     - "target"
     - "dbt_modules"
 
+seeds:
+    snowflake_dbt_poc:
+        preqin:
+            schema: preqin 
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -50,6 +54,10 @@ models:
             materialized: view
             stg_acumatica:
                 schema: acumatica
+            stg_preqin:
+                materialized: ephemeral
+            stg_salesforce:
+                materialized: ephemeral
         # Applies to all files under models/l120_marts/
         l20_marts:
             materialized: view
@@ -61,6 +69,7 @@ models:
                 schema: heap
             preqin:
                 schema: preqin
+                +materialized: table
             presentation:
                 schema: presentation
             salesforce:

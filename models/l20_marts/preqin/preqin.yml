@@ -1,4 +1,5 @@
 version: 2
+
 models:
   - name: preqin_dimension_asset_class
     description: A dimension table containing the Preqin CRM asset classes.
@@ -17,3 +18,4 @@ models:
   
   - name: preqin_fact_usage_data_feeds
     description: A Fact table containing the Data Feed Page Logs from Preqin Pro.
+    

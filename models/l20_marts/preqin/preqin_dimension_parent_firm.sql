@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}
+{{ config(materialized='table', tags=["firm"]) }}
 
 SELECT
     {{ dbt_utils.surrogate_key(

@@ -37,6 +37,7 @@ sources:
       - name: tblpei_product
       - name: tbluser_details
       - name: tbluser_Subscription
+      - name: tblcurrency_rates_history
 
   - name: salesforce
     description: Salesforce CRM platform.
@@ -47,7 +48,8 @@ sources:
       - name: account
       - name: user
       - name: contact 
- 
+      - name: competitor__c
+
   - name: acumatica
     description: ERP system. Source of Book of Business etc..
     database: DB_RAW
