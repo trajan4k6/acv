@@ -29,10 +29,11 @@ SELECT
     legacy_firm_id,
     contact_name,
     sales_region,
+    'Profile' as app_section_category,
     profile_type,
     profile_id,
     profile_section,
     count(distinct event_id) AS profile_view_count
 FROM app_pageviews
-GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
  
