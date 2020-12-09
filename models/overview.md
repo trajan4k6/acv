@@ -1,3 +1,4 @@
+{% docs __overview__ %}
 # Moneyball Project
 
 ## Background
@@ -23,3 +24,5 @@ To run the project in DBT:
 4. Run `dbt seed`.
 5. Run `dbt run`.
 6. Run `dbt test`.
+
+{% enddocs %}

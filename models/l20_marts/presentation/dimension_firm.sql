@@ -155,5 +155,3 @@ LEFT
 JOIN firm_aum faum
     ON fd.dimension_firm_key = faum.dimension_firm_key
 
-
-

@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: feedbackify_dimension_browser
+    description: A dimension table containing the browser specific to the user making the NPS.
+    
+  - name: feedbackify_dimension_country
+    description: A dimension table containing the country specific to the user making the NPS.
+  
+  - name: feedbackify_dimension_os
+    description: A dimension table containing the OS used by the user making the NPS.
+  
+  - name: feedbackify_dimension_region
+    description: A dimension table containing the region specific to the user making the NPS. Not used.
+
+  - name: feedbackify_fact_nps
+    description: A Fact table containing the NPS.

@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: acumatica_dimension_account_classification
+    description: A dimension table containing the account classification from the modified Book of Business.
+
+  - name: acumatica_dimension_asset_class
+    description: A dimension table containing the asset class from the modified Book of Business.
+  
+  - name: acumatica_dimension_product
+    description: A dimension table containing the product from the modified Book of Business.
+  
+  - name: acumatica_dimension_region
+    description: A dimension table containing the region specific to the Firm in the modified Book of Business.
+
+  - name: acumatica_fact_revenue
+    description: A Fact table containing the Implied Value from the modified Book of Business.
+    columns:
+        - name: core_id
+          description: '{{ doc("core_id") }}'
