@@ -1,0 +1,84 @@
+Firm_Type,Firm_Category
+Asset Manager,Investor
+Corporate Investor,Investor
+Endowment Plan,Investor
+Family Office - Multi,Investor
+Family Office - Single,Investor
+Foundation,Investor
+Fund of Hedge Funds Manager,Investor
+Government Agency,Investor
+High-Net-Worth Individual,Investor
+Hybrid Fund of Funds Manager,Investor
+Infrastructure Fund of Funds Manager,Investor
+Insurance Company,Investor
+Investment Company,Investor
+Investment Consultant,Investor
+Investment Trust,Investor
+Investor,Investor
+Listed Fund of Funds Manager,Investor
+Private Equity Fund of Funds Manager,Investor
+Private Sector Pension Fund,Investor
+Public Pension Fund,Investor
+Real Assets Fund of Funds Manager,Investor
+Real Estate Fund of Funds Manager,Investor
+Secondary Fund of Funds Manager,Investor
+Sovereign Wealth Fund,Investor
+Trustee Company,Investor
+Wealth Manager,Investor
+Superannuation Scheme,Investor
+Asset Manager - Investor,Investor
+Asset Manager - Fund Manager,Investor
+Private Debt Fund of Funds Manager,Investor
+State-Owned Enterprise,Investor
+Hedge Fund Manager,Fund Manager
+Infrastructure - Other,Fund Manager
+Infrastructure Asset,Fund Manager
+Infrastructure Firm,Fund Manager
+Infrastructure Firm (Investor),Fund Manager
+Loan Provider,Fund Manager
+Natural Resources Firm,Fund Manager
+Portfolio Company,Fund Manager
+Private Debt Firm,Fund Manager
+Private Equity Firm,Fund Manager
+Private Equity Firm (Investor),Fund Manager
+Property Investment Company,Fund Manager
+Real Assets Firm,Fund Manager
+Real Estate Firm,Fund Manager
+Real Estate Firm (Investor),Fund Manager
+Real Estate Investment Firm,Fund Manager
+REIT,Fund Manager
+Natural Resources Fund of Funds Manager,Fund Manager
+Real Estate Advisor,Service Provider
+Investment Bank,Service Provider
+Law Firm,Service Provider
+Press,Service Provider
+Placement Agent,Service Provider
+Industry Association,Service Provider
+Bank,Service Provider
+Real Estate - Other,Service Provider
+Auditor,Service Provider
+Consultant,Service Provider
+Prime Broker,Service Provider
+Software Company,Service Provider
+Marketing Company (Alternative Assets),Service Provider
+Real Estate Brokerage,Service Provider
+Custodian,Service Provider
+Advisory,Service Provider
+Real Estate Services,Service Provider
+Other,Service Provider
+Secondary Intermediary,Service Provider
+Corporate Finance,Service Provider
+Fund Administrator,Service Provider
+Recruitment Consultant,Service Provider
+Financial Advisor,Service Provider
+Real Estate Developer,Service Provider
+Accounting Firm,Service Provider
+PR Company,Service Provider
+Academic Institution,Service Provider
+Unknown,Service Provider
+Insurance Broker,Service Provider
+Natural Resources - Other,Service Provider
+Arranger,Service Provider
+Property Manager,Service Provider
+Secondary Real Estate,Service Provider
+CLO Firm,Service Provider
