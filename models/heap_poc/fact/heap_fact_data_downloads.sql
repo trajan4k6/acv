@@ -55,7 +55,7 @@ SELECT
         WHEN path ILIKE '/portfolio%' THEN 'My Portfolio'
         WHEN path = '/datasupport' THEN 'Support'
     END AS app_section_category
-FROM {{ source('heap', 'mammoth_poc_reports_pro_key_actions_data_table_download_confirmed') }}
+FROM {{ source('heap', 'pro_downloads_pro_key_actions_data_table_download_confirmed') }}
 WHERE app_section_category IS NOT NULL
 
 {% if is_incremental() %}

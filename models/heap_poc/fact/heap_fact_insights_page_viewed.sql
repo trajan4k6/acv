@@ -53,7 +53,7 @@ SELECT
         WHEN path ILIKE '/insights/research/blogs/%' THEN 'Blog'
         WHEN path ILIKE '/insights/%/%/%' THEN 'Other'
     END AS insights_asset_type
-FROM {{ source('heap', 'mammoth_poc_reports_insights_insights_page_viewed') }}
+FROM {{ source('heap', 'preqin_com_insights_insights_page_viewed') }}
 
 {% if is_incremental() %}
 
