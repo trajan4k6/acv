@@ -56,7 +56,7 @@ SELECT
         WHEN path = '/datasupport' THEN 'Support'
         ELSE 'Other'
     END AS app_section_category
-FROM {{ source('heap', 'mammoth_poc_reports_pro_key_actions_data_table_download_confirmed') }}
+FROM {{ source('heap', 'pro_downloads_pro_key_actions_data_table_download_confirmed') }}
 WHERE 1 = 1
 
 {% if is_incremental() %}

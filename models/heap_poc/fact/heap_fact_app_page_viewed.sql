@@ -68,7 +68,7 @@ SELECT
 
     CASE WHEN path ILIKE '/discover%' THEN split_part(path, '/', 3) END AS discover_section
 
-FROM {{ source('heap', 'mammoth_poc_reports_pro_key_actions_app_page_viewed') }}
+FROM {{ source('heap', 'pro_general_usage_pro_key_actions_app_page_viewed') }}
 
 {% if is_incremental() %}
 
