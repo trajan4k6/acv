@@ -20,6 +20,8 @@ sources:
       - name: preqin_com_insights_insights_page_viewed
       - name: pro_general_usage_pro_key_actions_app_page_viewed
       - name: pro_downloads_pro_key_actions_data_table_download_confirmed
+      - name: pro_profile_profile_viewed
+
 
   - name: preqin
     description: Preqin CRM platform, also referred to as the server it runs on Preqin01.
