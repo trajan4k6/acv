@@ -9,6 +9,7 @@ WITH revenue AS (
        invoice_no,
        implied_value,
        cast(year((a.management_start_date::date)) || right('0' || month((a.management_start_date::date)), 2) || right('0' || dayofmonth((a.management_start_date::date)), 2) as int) as date_key,
+       coalesce(f.dimension_firm_key,'-1')    																																         as dimension_firm_key,
        coalesce(ac.dimension_asset_class_key,'-1')    																																 as dimension_asset_class_key,
        coalesce(r.dimension_region_key,'-1')    																																	 as dimension_region_key,
        coalesce(p.dimension_product_key,'-1')    																																	 as dimension_product_key,
@@ -16,7 +17,10 @@ WITH revenue AS (
 
     FROM 
         {{ ref('stg_acumatica_book_of_business') }} a
-    
+
+    LEFT JOIN {{ ref('acumatica_dimension_firm') }} f
+        ON a.firm_id = f.firm_id
+
     LEFT JOIN {{ ref('acumatica_dimension_asset_class') }} ac
         ON a.asset_class_map = ac.asset_class_name
     
