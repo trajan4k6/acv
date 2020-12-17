@@ -18,4 +18,3 @@ WHERE
     is_last_day_of_month = TRUE
 AND NVL(p.product_family_name,'') = 'Feeds'
 GROUP BY 1, 2, 3, 4
-stuar
