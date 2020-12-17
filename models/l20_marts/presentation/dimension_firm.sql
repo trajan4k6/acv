@@ -38,8 +38,8 @@ primary_firm_address AS (
         f2a.is_primary_address = true
 ),
 
-firm_aum as (
-SELECT dimension_firm_key, aum_usd
+crm_firm_details as (
+SELECT dimension_firm_key, aum_usd, first_paid_subscription_date
 FROM {{ ref('preqin_dimension_firm') }}
 )
 ,
@@ -128,7 +128,8 @@ fa.state,
 fa.postal_code,
 fa.country,
 --AUM - assets under management (mn)
-faum.aum_usd,
+cfd.aum_usd,
+cfd.first_paid_subscription_date,
 --dim keys
 fd.DIMENSION_ACCOUNT_CLASSIFICATION_KEY,
 fd.DIMENSION_REGION_KEY,
@@ -152,6 +153,6 @@ JOIN primary_firm_address fa
     ON fd.dimension_firm_key = fa.dimension_firm_key
 
 LEFT
-JOIN firm_aum faum
-    ON fd.dimension_firm_key = faum.dimension_firm_key
+JOIN crm_firm_details cfd
+    ON fd.dimension_firm_key = cfd.dimension_firm_key
 
