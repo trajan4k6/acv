@@ -118,6 +118,8 @@ JOIN {{ ref('salesforce_dimension_region') }} AR
 LEFT
 JOIN {{ ref('salesforce_dimension_region_team') }} ART
     ON A.DIMENSION_REGION_TEAM_KEY = ART.DIMENSION_REGION_TEAM_KEY
+WHERE 
+    F.CONFORMED_DIMENSION_FIRM_KEY = '-1'
 )
 
 SELECT
