@@ -38,8 +38,8 @@ primary_firm_address AS (
         f2a.is_primary_address = true
 ),
 
-firm_aum as (
-SELECT dimension_firm_key, aum_usd
+crm_firm_details as (
+SELECT dimension_firm_key, aum_usd, first_paid_subscription_date
 FROM {{ ref('preqin_dimension_firm') }}
 )
 ,
@@ -101,6 +101,25 @@ JOIN {{ ref('salesforce_dimension_region_team') }} ART
 
 WHERE 
     F.CONFORMED_DIMENSION_FIRM_KEY = '-1'
+--4 + any Unmapped Acumatica Firms to Primary\Master Firm
+UNION 
+SELECT F.DIMENSION_FIRM_KEY, TO_CHAR(F.FIRM_ID) AS FIRM_ID, F.FIRM_NAME, A.ACCOUNT_ID AS SALESFORCE_ACCOUNT_ID, AC.ACCOUNT_CLASSIFICATION, F.FIRM_TYPE, F.FIRM_CATEGORY, AR.REGION_NAME, ART.REGION_TEAM_NAME, NULL, NULL, NULL, f.is_active, COALESCE(A.DIMENSION_ACCOUNT_CLASSIFICATION_KEY, '-1') DIMENSION_ACCOUNT_CLASSIFICATION_KEY, COALESCE(A.DIMENSION_REGION_KEY, '-1') DIMENSION_REGION_KEY, COALESCE(A.DIMENSION_REGION_TEAM_KEY, '-1') DIMENSION_REGION_TEAM_KEY, F.DATASOURCE_ID
+FROM {{ ref('acumatica_dimension_firm') }} F
+--JOIN TO Salesforce Account Dimension FOR Salesforce mastered attributes
+LEFT
+JOIN {{ ref('salesforce_dimension_account') }} A
+    ON F.DIMENSION_FIRM_KEY = A.CONFORMED_DIMENSION_FIRM_KEY
+LEFT
+JOIN {{ ref('salesforce_dimension_account_classification') }} AC
+    ON A.DIMENSION_ACCOUNT_CLASSIFICATION_KEY = AC.DIMENSION_ACCOUNT_CLASSIFICATION_KEY
+LEFT
+JOIN {{ ref('salesforce_dimension_region') }} AR
+    ON A.DIMENSION_REGION_KEY = AR.DIMENSION_REGION_KEY
+LEFT
+JOIN {{ ref('salesforce_dimension_region_team') }} ART
+    ON A.DIMENSION_REGION_TEAM_KEY = ART.DIMENSION_REGION_TEAM_KEY
+WHERE 
+    F.CONFORMED_DIMENSION_FIRM_KEY = '-1'
 )
 
 SELECT
@@ -128,7 +147,8 @@ fa.state,
 fa.postal_code,
 fa.country,
 --AUM - assets under management (mn)
-faum.aum_usd,
+cfd.aum_usd,
+cfd.first_paid_subscription_date,
 --dim keys
 fd.DIMENSION_ACCOUNT_CLASSIFICATION_KEY,
 fd.DIMENSION_REGION_KEY,
@@ -152,6 +172,6 @@ JOIN primary_firm_address fa
     ON fd.dimension_firm_key = fa.dimension_firm_key
 
 LEFT
-JOIN firm_aum faum
-    ON fd.dimension_firm_key = faum.dimension_firm_key
+JOIN crm_firm_details cfd
+    ON fd.dimension_firm_key = cfd.dimension_firm_key
 
