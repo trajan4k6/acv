@@ -1,0 +1,8 @@
+SELECT 1 FROM (
+    SELECT CASE WHEN TO_DATE((TotalRowCount::string), 'YYYYMMDD') = CURRENT_DATE() 
+        THEN TRUE ELSE FALSE 
+    END IsDataCurent
+    FROM DB_RAW.PREQIN01_PROD_RIVERY.STATICTABLEROWCOUNTS 
+    WHERE Tablename = 'Table_Generated_Date'
+) WHERE IsDataCurent = FALSE
+
