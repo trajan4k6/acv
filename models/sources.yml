@@ -41,6 +41,7 @@ sources:
       - name: tbluser_Subscription
       - name: tblcurrency_rates_history
       - name: tblLoggedStats_Subscribers
+      - name: STATICTABLEROWCOUNTS
 
   - name: salesforce
     description: Salesforce CRM platform.
