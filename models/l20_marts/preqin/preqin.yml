@@ -24,3 +24,6 @@ models:
 
   - name: preqin_fact_paid_subscriber_daily_history
     description: A once only loaded model capturing the daily history of paid subscribers by firm, contact and product
+
+  - name: preqin_fact_paid_subscription_range
+    description: A table representing firms paid subscription tenures, including the number of days between the start of a new and end of a previous paid tenure
