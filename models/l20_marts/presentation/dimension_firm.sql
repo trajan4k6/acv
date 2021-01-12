@@ -39,10 +39,36 @@ primary_firm_address AS (
 ),
 
 crm_firm_details as (
-SELECT dimension_firm_key, aum_usd, first_paid_subscription_date
-FROM {{ ref('preqin_dimension_firm') }}
-)
-,
+    SELECT dimension_firm_key, aum_usd
+    --, first_paid_subscription_date
+    FROM {{ ref('preqin_dimension_firm') }}
+),
+
+firm_tenure as (
+    SELECT 
+    ffpsr.dimension_firm_key, 
+    min(ffpsr.start_range) tenure_start_date, 
+    max(ffpsr.end_range) tenure_end_date,
+    datediff(month, tenure_start_date, tenure_end_date) Firm_Tenure_Months
+    FROM {{ ref('preqin_fact_paid_subscription_range') }} ffpsr
+    JOIN (SELECT  dimension_firm_key, 
+                COALESCE(max(case when Sub_Break_Duration_Days > 365 then RN else NULL end),min(RN)-1)   min_row_number
+        FROM {{ ref('preqin_fact_paid_subscription_range') }} ffpsr
+        GROUP BY dimension_firm_key) s1
+    ON ffpsr.dimension_firm_key = s1.dimension_firm_key
+    AND ffpsr.RN > s1.min_row_number
+    GROUP BY 
+    ffpsr.dimension_firm_key
+),
+
+sub_earliest_start_date as (
+    SELECT 
+    ffpsr.dimension_firm_key, 
+    MIN(Start_Range) AS first_paid_subscription_date
+    FROM {{ ref('preqin_fact_paid_subscription_range') }} ffpsr
+    GROUP BY 
+    ffpsr.dimension_firm_key
+),
 
 conformed_firm_details AS (
 SELECT '-1' AS DIMENSION_FIRM_KEY, NULL AS FIRM_ID, NULL FIRM_NAME, NULL SALESFORCE_ACCOUNT_ID, NULL AS ACCOUNT_CLASSIFICATION, NULL AS FIRM_TYPE, NULL AS FIRM_CATEGORY, NULL AS REGION_NAME, NULL AS REGION_TEAM_NAME, NULL AS parent_firm_id, NULL AS  parent_firm_name, NULL AS parent_firm_type, NULL as is_active,  '-1' AS DIMENSION_ACCOUNT_CLASSIFICATION_KEY, '-1' AS DIMENSION_REGION_KEY, '-1' AS DIMENSION_REGION_TEAM_KEY, NULL AS DATASOURCE_ID
@@ -148,7 +174,8 @@ fa.postal_code,
 fa.country,
 --AUM - assets under management (mn)
 cfd.aum_usd,
-cfd.first_paid_subscription_date,
+sub.first_paid_subscription_date,
+ft.Firm_Tenure_Months,
 --dim keys
 fd.DIMENSION_ACCOUNT_CLASSIFICATION_KEY,
 fd.DIMENSION_REGION_KEY,
@@ -174,4 +201,12 @@ JOIN primary_firm_address fa
 LEFT
 JOIN crm_firm_details cfd
     ON fd.dimension_firm_key = cfd.dimension_firm_key
+
+LEFT
+JOIN firm_tenure ft
+    ON fd.dimension_firm_key = ft.dimension_firm_key
+
+LEFT
+JOIN sub_earliest_start_date sub
+    ON fd.dimension_firm_key = sub.dimension_firm_key
 

@@ -12,6 +12,9 @@ firm_category as (
     from {{ ref('stg_FirmType_To_FirmCategory')}}
 )
 
+/* -SB 20210111 - Reverted after discovering the logic doesnt tie in close enough with the subscription range and customer tenure calculation.
+## tbluser_Subscription is not a reliable source of customer tenure due the nature in which the previous subscription_enddate is overwritten when editing a sub in the CRM.
+
 ,sub_earliest_start_date as (
 SELECT
 f.firm_id,
@@ -33,6 +36,7 @@ WHERE
 GROUP BY
     f.firm_id
 )
+*/
 
 SELECT
     {{ dbt_utils.surrogate_key(
@@ -50,7 +54,7 @@ SELECT
     f.Firm_funds_managed / currency_rate AS aum_usd, 
     Firm_funds_managed AS aum_local,
     Firm_funds_managed_currency local_currency,
-    sub.first_paid_subscription::date AS first_paid_subscription_date,
+    --sub.first_paid_subscription::date AS first_paid_subscription_date,
     1 AS Datasource_ID
 FROM {{ source('preqin', 'tblFirm') }} f
 LEFT
@@ -65,6 +69,6 @@ JOIN current_usd_fx_rate fx
 LEFT
 JOIN firm_category fc
     ON ft.DisplayName = fc.firm_type
-LEFT
-JOIN sub_earliest_start_date sub
-    ON f.firm_id = sub.firm_id
+--LEFT
+--JOIN sub_earliest_start_date sub
+--    ON f.firm_id = sub.firm_id
