@@ -42,6 +42,12 @@ AND (
 OR 
     NVL(product_family, '') = 'Feeds'
 )
+--Exclude soft deleted raw records
+AND (
+    us.__DELETED IS NULL
+OR 
+    us.__DELETED <> TRUE
+)
 
 {% if is_incremental() %}
 
