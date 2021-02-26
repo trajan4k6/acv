@@ -11,10 +11,25 @@ models:
   
   - name: salesforce_dimension_contact
     description: A dimension table containing the contact attributes from Salesforce mapping to an 
-                Individual and a Firm.
+                Individual and the Primary Firm.
 
   - name: salesforce_dimension_region_team
     description: A dimension table containing the accounts region team attributes from Salesforce.
     
   - name: salesforce_dimension_region
     description: A dimension table containing the accounts region attributes from Salesforce.
+
+  - name: salesforce_dimension_product_use_case
+    description: A dimension table containing the use case of how contacts might use Preqin products.
+
+  - name: salesforce_bridge_contact_to_product_use_case
+    description: Mapping betweeen a contact and their use case of Preqin products.
+  
+  - name: salesforce_contact_account
+    description: A dimension table containing the firms related to a contact and the mapping to a CRM individual (ContactFirm).
+
+  - name: salesforce_bridge_contact_to_contact_account
+    description: Mapping betweeen contact and contact account dimensions.
+  
+  
+  
