@@ -13,6 +13,7 @@ SELECT
     NULLIF(cf.cf_LinkedIn,'') LinkedIn,
     NULLIF(cf.cf_Tel,'') Phone,
     NULLIF(cf.cf_Mob,'') Mobile,
+    NULLIF(cf.cf_JobTitle,'') Job_Title,
     NVL(cf.cf_Status, FALSE) Is_Active,
     COALESCE(DIMENSION_FIRM_KEY, '-1') DIMENSION_FIRM_KEY,
     1 AS Datasource_ID
