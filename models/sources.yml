@@ -53,6 +53,7 @@ sources:
       - name: user
       - name: contact 
       - name: competitor__c
+      - name: accountcontactrelationship
 
   - name: acumatica
     description: ERP system. Source of Book of Business etc..

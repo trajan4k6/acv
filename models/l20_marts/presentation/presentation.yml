@@ -32,3 +32,9 @@ models:
 
   - name: fact_usage_data_feeds
     description: Fact table containing Page Log activity metrics from Preqin Pro.
+
+  - name: dimension_product_use_case
+    description: A dimension table containing the use case of how contacts might use Preqin products.
+
+  - name: bridge_individual_to_product_use_case
+    description: Mapping betweeen a contact and their use case of Preqin products.
