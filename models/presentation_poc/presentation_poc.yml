@@ -17,8 +17,20 @@ models:
         - unique:
             column_name: "concat(date, contact_id, account_id, content_type, path)"
 
+    - name: presentation_heap_daily_data_downloads
+      description: A table for the sales POC dashboard that summarizes data downloads by path by user by day
+      tests:
+        - unique:
+            column_name: "concat(date, contact_id, account_id, path)"
+  
     - name: presentation_heap_daily_profile_views
-      description: A table for the sales POC dashboard that summarizes profile views by app section category, profile type, profile section and profile id by user by day
+      description: A table for the sales POC dashboard that summarizes profile views by user by day using the new custom profile viewed event
+      tests:
+        - unique:
+            column_name: "concat(date, contact_id, account_id, asset_class, nvl(profile_type, ''), nvl(profile_id, ''), profile_name, identity )"
+
+    - name: presentation_heap_daily_app_page_views
+      description: A table for the sales POC dashboard that summarizes app page views by app section category, profile type, profile section and profile id by user by day
       tests:
         - unique:
             column_name: "concat(date, contact_id, account_id, app_section_category, nvl(profile_type, ''), nvl(profile_id, ''), profile_section, identity )"
