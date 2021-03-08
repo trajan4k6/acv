@@ -30,6 +30,8 @@ SELECT
     utm_medium,
     utm_term,
     utm_content,
+    -- clean for only numeric values to convert string to integer
+    regexp_replace(download_search_row_count, '[^[:digit:]]')::int as download_row_count,
     -- same definition as this Heap custom property https://heapanalytics.com/app/definitions?view=properties&type=defined_property&id=Profile-Type-301892
     CASE
         WHEN path ILIKE '/deal/%' THEN 'Deal Profile'
