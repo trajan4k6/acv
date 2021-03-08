@@ -17,10 +17,10 @@ SELECT
 CAST(YEAR((Fact.DATE::DATE)) || RIGHT('0' || MONTH((Fact.DATE::DATE)), 2) || RIGHT('0' || DAYOFMONTH((Fact.DATE::DATE)), 2) AS INT) AS DATE_KEY,
 CASE WHEN U.conformed_dimension_individual_key = '-1' THEN U.dimension_user_key ELSE COALESCE(U.conformed_dimension_individual_key,'-1') END DIMENSION_INDIVIDUAL_KEY,
 CASE WHEN F.conformed_dimension_firm_key = '-1' THEN F.dimension_firm_key ELSE COALESCE(F.conformed_dimension_firm_key,'-1') END DIMENSION_FIRM_KEY,
-app_section_category,
+asset_class,
 profile_type,
 profile_id,
-profile_section,
+profile_name,
 SUM(profile_view_count) AS profile_view_count
 FROM {{ ref('presentation_heap_daily_profile_views') }} Fact
 LEFT
