@@ -16,7 +16,8 @@ WITH profile_pageviews AS
         asset_class,
         profile_type, 
         profile_id,
-        profile_name
+        profile_name,
+        profile_section
     FROM {{ ref('heap_fact_profile_page_viewed') }} AS profile_page_viewed
     JOIN {{ ref('heap_dimension_user') }} AS users
         ON profile_page_viewed.user_id = users.user_id
@@ -35,7 +36,8 @@ SELECT
     profile_type,
     profile_id,
     profile_name,
+    profile_section,
     count(distinct event_id) AS profile_view_count
 FROM profile_pageviews
-{{ dbt_utils.group_by(n=12) }}
+{{ dbt_utils.group_by(n=13) }}
  
