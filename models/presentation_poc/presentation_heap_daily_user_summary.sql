@@ -45,7 +45,8 @@ WITH key_actions AS
     count(distinct CASE WHEN app_section_category = 'Charts' THEN event_id END) AS chart_downloads,
     count(distinct CASE WHEN app_section_category = 'Market Benchmarks' THEN event_id END) AS market_benchmark_downloads,
     count(distinct CASE WHEN app_section_category = 'Target List' THEN event_id END) AS target_list_downloads,
-    count(distinct CASE WHEN app_section_category = 'My Benchmarks' THEN event_id END) AS my_benchmark_downloads
+    count(distinct CASE WHEN app_section_category = 'My Benchmarks' THEN event_id END) AS my_benchmark_downloads,
+    sum(download_row_count) as total_download_row_count
   FROM {{ ref('heap_fact_data_downloads') }} 
   GROUP BY 1, 2
 )
@@ -86,6 +87,7 @@ SELECT
     sum(save_new_search) AS save_new_search,
     sum(create_alert) AS create_alert,
     sum(total_downloads) AS total_downloads,
+    sum(total_download_row_count) as total_download_row_count,
     sum(search_downloads) AS search_downloads,
     sum(profile_downloads) AS profile_downloads,
     sum(chart_downloads) AS chart_downloads,

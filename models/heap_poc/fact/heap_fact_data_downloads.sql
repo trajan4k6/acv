@@ -30,6 +30,8 @@ SELECT
     utm_medium,
     utm_term,
     utm_content,
+    -- clean for only numeric values to convert string to integer
+    regexp_replace(download_search_row_count, '[^[:digit:]]')::int as download_row_count,
     -- same definition as this Heap custom property https://heapanalytics.com/app/definitions?view=properties&type=defined_property&id=Profile-Type-301892
     CASE
         WHEN path ILIKE '/deal/%' THEN 'Deal Profile'
@@ -46,15 +48,14 @@ SELECT
         WHEN path ILIKE '/dashboard/watchlist%' OR path ILIKE '/discover%targetlists%' THEN 'Target List'
         WHEN path = '/dashboard/alerts' THEN 'Alerts'
         WHEN path = '/dashboard/savedSearch' THEN 'Saved Searches'
-        WHEN path ILIKE '%myBenchmarks%' OR path ILIKE '/dashboard/benchmarks/%/custom%' OR path ILIKE '/discoverAnalysis/benchmarks/%/custom%' OR path ILIKE '/analysis/benchmarks/privateCapital/custom/%'  THEN 'Custom Benchmarks'
-        WHEN path ILIKE '/analysis/benchmarks/%/market' OR path = '/analysis/horizonIRRs' OR path ILIKE '/discoverAnalysis/benchmarks/%/market%' OR path ='/discoverAnalysis/hedgeFundPerformance/marketBenchmarks' OR path = '/discoverAnalysis/benchmarks/privateCapital/benchmarkCompare' THEN 'Market Benchmarks'
+        WHEN path ILIKE '%myBenchmarks%' OR (path ILIKE '%benchmarks%' and path ILIKE '%custom%') THEN 'Custom Benchmarks'
+        WHEN path ILIKE '%benchmarks%' OR path ilike '%/analysis/quarterlyIndex' OR path = '/analysis/riskAndReturn' OR path ILIKE '/analysis/horizonIRRs%' THEN 'Market Benchmarks'
         WHEN path ILIKE '/discover%' OR path = '/search' THEN 'Search'
         WHEN path ILIKE '/analysis/leagueTables/%' THEN 'League Tables'
         WHEN path ILIKE '/analysis%' THEN 'Charts'
         WHEN path IN ('/dashboard', '/dashboard/') THEN 'Dashboard Home'
         WHEN path ILIKE '/portfolio%' THEN 'My Portfolio'
         WHEN path = '/datasupport' THEN 'Support'
-        ELSE 'Other'
     END AS app_section_category
 FROM {{ source('heap', 'pro_downloads_pro_key_actions_data_table_download_confirmed') }}
 WHERE 1 = 1

@@ -21,8 +21,8 @@ app_section_category,
 profile_type,
 profile_id,
 profile_section,
-SUM(profile_view_count) AS profile_view_count
-FROM {{ ref('presentation_heap_daily_profile_views') }} Fact
+SUM(app_page_view_count) AS profile_view_count
+FROM {{ ref('presentation_heap_daily_app_page_views') }} Fact
 LEFT
 JOIN {{ ref('heap_dimension_firm_integrated') }} F
     ON Fact.Account_ID = F.Account_ID
