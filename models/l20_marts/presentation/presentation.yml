@@ -30,6 +30,9 @@ models:
   - name: fact_usage_daily_user_summary
     description: Fact table containing various daily metrics sourced from Heap.
 
+  - name: fact_usage_daily_app_page_views
+    description: Fact table containing total Pro page view count split by app section.
+
   - name: fact_usage_data_feeds
     description: Fact table containing Page Log activity metrics from Preqin Pro.
 
