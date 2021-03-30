@@ -25,13 +25,13 @@ models:
     description: Fact table containing the Book Of Business Revenue.
 
   - name: fact_usage_daily_profile_views
-    description: Fact table providing an aggregated profile view count from Heap.
+    description: Fact table providing an aggregated profile view count from Heap. This includes just the overall Profile View count and not the total of all individual app profile page views.
 
   - name: fact_usage_daily_user_summary
     description: Fact table containing various daily metrics sourced from Heap.
 
   - name: fact_usage_daily_app_page_views
-    description: Fact table containing total Pro page view count split by app section.
+    description: Fact table containing total Pro page view count split by app section.  This includes all page views.
 
   - name: fact_usage_data_feeds
     description: Fact table containing Page Log activity metrics from Preqin Pro.
