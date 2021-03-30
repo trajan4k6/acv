@@ -34,4 +34,4 @@ JOIN heap_identity U
 LEFT
 JOIN {{ ref('dimension_profile_type') }} PT
     ON Fact.profile_type = PT.profile_type
-{{ dbt_utils.group_by(n=7) }}
+{{ dbt_utils.group_by(n=6) }}
