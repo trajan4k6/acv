@@ -58,6 +58,8 @@ models:
                 materialized: ephemeral
             stg_salesforce:
                 materialized: ephemeral
+            stg_delighted:
+                schema: delighted
         # Applies to all files under models/l120_marts/
         l20_marts:
             materialized: view
@@ -74,6 +76,9 @@ models:
                 schema: presentation
             salesforce:
                 schema: salesforce
+            delighted:
+                enabled: true
+                schema: delighted
         # Applies to all files under models/l130_presentation/
             materialized: view
         heap_poc:

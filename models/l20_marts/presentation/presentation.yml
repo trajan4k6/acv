@@ -41,3 +41,15 @@ models:
 
   - name: bridge_individual_to_product_use_case
     description: Mapping betweeen a contact and their use case of Preqin products.
+
+  - name: dimension_browser
+    description: A dimension table containing the browser specific to the user making the NPS.
+
+  - name: dimension_operating_system
+    description: A dimension table containing the operating system used by the user making the NPS.
+  
+  - name: fact_net_promoter_score
+    description: A Fact table containing the NPS.
+
+  - name: dimension_datasource
+    description: Table containing a list of the DWH source systems

@@ -75,3 +75,12 @@ sources:
       - name: net_promoter_score
         description: Loaded into Snowflake manually monthly from an Alteryx workflow that 
                     connects to Feedbackify to get a csv export of all NPS.
+
+  - name: delighted
+    description: Replacement tool to Feedbackify, used to gather NPS (Net Promoter Score).
+    database: DB_RAW
+    schema: DELIGHTED
+    loader: rivery
+    tables:
+      - name: net_promoter_score
+        description: Loaded into Snowflake daily using a Rivery.
