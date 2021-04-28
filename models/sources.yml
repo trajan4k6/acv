@@ -42,6 +42,7 @@ sources:
       - name: tblcurrency_rates_history
       - name: tblLoggedStats_Subscribers
       - name: STATICTABLEROWCOUNTS
+      - name: tblorders
 
   - name: salesforce
     description: Salesforce CRM platform.
@@ -53,6 +54,9 @@ sources:
       - name: user
       - name: contact 
       - name: competitor__c
+      - name: opportunity
+      - name: opportunitylineitem
+      - name: product2
 
   - name: acumatica
     description: ERP system. Source of Book of Business etc..
