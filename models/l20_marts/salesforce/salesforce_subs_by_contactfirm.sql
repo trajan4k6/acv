@@ -13,7 +13,7 @@ select distinct
     , fa.Country as Contact_Country
     , s.PACKAGE_NAME
     , s.RENEWAL_DATE
-    , s.ISRENEWAL 
+    , s.CLASSIFICATION 
     , s.SUBSCRIPTION_START_DATE
     , NVL(TreatAsNew, TRUE) TreatAsNew
     , o.OPPORTUNITYID
