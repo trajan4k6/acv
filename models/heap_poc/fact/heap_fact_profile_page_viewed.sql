@@ -50,13 +50,23 @@ SELECT
     profilename as profile_name,
     client_locations,
     firm_type,
-    profiletype as profile_type,
+    CASE
+        WHEN profiletype = 'Deal' THEN 'Deal Profile'
+        WHEN profiletype = 'ServiceProvider' THEN 'Service Provider Profile'
+        WHEN profiletype = 'Asset' THEN 'Asset Profile'
+        WHEN profiletype = 'Consultant' THEN 'Investment Consultant'
+        WHEN profiletype = 'FundManager' THEN 'Fund Manager Profile'
+        WHEN profiletype = 'Fund' THEN 'Fund Profile'
+        WHEN profiletype = 'Investor' THEN 'Investor Profile'
+    ELSE profiletype
+    END profile_type,
     fund_type,
     nullif(split_part(path, '/', 3), '') as profile_id,
     nullif(split_part(path, '/', 4), '') as profile_section
 FROM {{ source('heap', 'pro_profile_profile_viewed') }}
 -- because the custom event was configured improperly and fires on all page views, filter out for only profile page views
-WHERE split_part(path, '/', 2) IN ('deal', 'serviceprovider', 'investmentconsultant', 'fundmanager', 'funds', 'investor')
+-- matches filter definition here: https://heapanalytics.com/app/definitions?view=events&type=event&id=Profile-Viewed-2473039
+WHERE split_part(lower(path), '/', 2) IN ('asset', 'serviceprovider', 'investmentconsultant', 'fundmanager', 'funds', 'investor')
 
 {% if is_incremental() %}
 

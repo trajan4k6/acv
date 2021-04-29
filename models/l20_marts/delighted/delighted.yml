@@ -1,0 +1,13 @@
+version: 2
+models:
+  - name: delighted_dimension_browser
+    description: A dimension table containing the browser specific to the user making the NPS.
+    
+  - name: delighted_dimension_country
+    description: A dimension table containing the country specific to the user making the NPS.
+  
+  - name: delighted_dimension_operating_system
+    description: A dimension table containing the operating system used by the user making the NPS.
+  
+  - name: delighted_fact_net_promoter_score
+    description: A Fact table containing the NPS.

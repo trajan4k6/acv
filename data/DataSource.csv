@@ -1,0 +1,7 @@
+datasource_id,datasource_name,datasource_desc
+1,Preqin01,Preqin01 SQL Server Research CRM
+2,Salesforce,Sales CRM
+3,Heap,Preqin Pro click stream capture system
+4,Acumatica,Finance ERP
+5,Feedbackify,Legacy net promoter score system
+6,Delighted,Net promotor score sysem

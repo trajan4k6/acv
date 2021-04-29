@@ -25,10 +25,31 @@ models:
     description: Fact table containing the Book Of Business Revenue.
 
   - name: fact_usage_daily_profile_views
-    description: Fact table providing an aggregated profile view count from Heap.
+    description: Fact table providing an aggregated profile view count from Heap. This includes just the overall Profile View count and not the total of all individual app profile page views.
 
   - name: fact_usage_daily_user_summary
     description: Fact table containing various daily metrics sourced from Heap.
 
+  - name: fact_usage_daily_app_page_views
+    description: Fact table containing total Pro page view count split by app section.  This includes all page views.
+
   - name: fact_usage_data_feeds
     description: Fact table containing Page Log activity metrics from Preqin Pro.
+
+  - name: dimension_product_use_case
+    description: A dimension table containing the use case of how contacts might use Preqin products.
+
+  - name: bridge_individual_to_product_use_case
+    description: Mapping betweeen a contact and their use case of Preqin products.
+
+  - name: dimension_browser
+    description: A dimension table containing the browser specific to the user making the NPS.
+
+  - name: dimension_operating_system
+    description: A dimension table containing the operating system used by the user making the NPS.
+  
+  - name: fact_net_promoter_score
+    description: A Fact table containing the NPS.
+
+  - name: dimension_datasource
+    description: Table containing a list of the DWH source systems
