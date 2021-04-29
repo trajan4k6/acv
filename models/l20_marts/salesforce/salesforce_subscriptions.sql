@@ -4,6 +4,8 @@ WITH cte_opportunity as  (
     SELECT row_number() over (partition by O.ID order by o.systemmodstamp desc  ) rn,
     * 
     FROM {{ source('salesforce', 'opportunity') }} O WHERE isdeleted = FALSE
+      AND stagename = 'Closed Won'-- Added these conditions to support marketing requirement. May deviate from Sandbox logic.
+      AND ISDELETED = FALSE
     )
 
     ,cte_opportunity_latest as (
@@ -30,6 +32,8 @@ WITH cte_opportunity as  (
 
     O.SUBSCRIPTION_START_DATE__C,
     O.CLOSEDATE,
+    O.RENEWAL_DATE__C AS RENEWAL_DATE,
+    CASE WHEN O.RENEWAL_DATE__C IS NULL THEN FALSE ELSE TRUE END AS ISRENEWAL,
     COALESCE(O.SUBSCRIPTION_START_DATE__C, O.CLOSEDATE) SUBSCRIPTION_START_DATE,
     o.systemmodstamp,
     P.Family AS Package_Family_Name,

@@ -10,10 +10,12 @@ select distinct
     , f.firm_id
     , f.firm_name
     , Ft.Firm_Type
-    , fa.firm_Country as Contact_Country
+    , fa.Country as Contact_Country
     , s.PACKAGE_NAME 
     , s.SUBSCRIPTION_START_DATE
     , NVL(TreatAsNew, TRUE) TreatAsNew
+    , o.OPPORTUNITYID
+    , o.ORDERID
 FROM   {{ ref('salesforce_subscriptions') }} s 
   JOIN {{ ref('bridge_opportunity_to_order') }} o ON s.OpportunityID = o.OPPORTUNITYID
   JOIN {{ ref('stg_tbluser_subscription') }} us ON o.ORDERID = us.ORDERID

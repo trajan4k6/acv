@@ -54,7 +54,7 @@ SELECT
     , NVL(DATEDIFF(MONTH,a.Max_subscription_expiry_date, b.MIN_SUBSCRIPTION_STARTDATE),0) UnlicensedPeriod
     , a.Max_subscription_expiry_date
     , b.MIN_SUBSCRIPTION_STARTDATE 
-    , CASE WHEN UnlicensedPeriod >= 12 OR a.Max_subscription_expiry_date IS NULL THEN 'TRUE' ELSE 'FALSE' END AS TreatAsNew
+    , CASE WHEN UnlicensedPeriod >= 12 OR a.Max_subscription_expiry_date IS NULL THEN TRUE ELSE FALSE END AS TreatAsNew
 FROM  mycte4 b 
   LEFT join mycte3 a ON a.user_id = b.user_id AND b.MIN_SUBSCRIPTION_STARTDATE >= a.Max_subscription_expiry_date
 WHERE b.MIN_SUBSCRIPTION_STARTDATE > DATEADD(DAY,-7,current_date) AND b.MIN_SUBSCRIPTION_STARTDATE < current_date
