@@ -11,7 +11,9 @@ select distinct
     , f.firm_name
     , Ft.Firm_Type
     , fa.Country as Contact_Country
-    , s.PACKAGE_NAME 
+    , s.PACKAGE_NAME
+    , s.RENEWAL_DATE
+    , s.ISRENEWAL 
     , s.SUBSCRIPTION_START_DATE
     , NVL(TreatAsNew, TRUE) TreatAsNew
     , o.OPPORTUNITYID
