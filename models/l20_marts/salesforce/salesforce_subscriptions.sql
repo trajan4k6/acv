@@ -45,7 +45,12 @@ WITH cte_opportunity as  (
     AND SF_SUBSCRIPTION_START_DATE BETWEEN DATEADD(DAY,-7,CURRENT_DATE) AND CURRENT_DATE
   )
 
-  SELECT DISTINCT o.*, 
+  SELECT DISTINCT 
+      {{ dbt_utils.surrogate_key(
+        [2,'']                       
+    ) }} AS dimension_salesforce_subscription_key,
+    COALESCE(x_key, '-1')  AS DIMENSION_x_KEY
+  o.*, 
     NVL(geography.name,'Global') as Geography_Name, 
     geography.ProductCode as Geography_ProductCode
   from cte_package o
