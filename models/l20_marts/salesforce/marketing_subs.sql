@@ -23,7 +23,8 @@ with mycte as (
     AND cf.cf_status = 1
     AND NVL(p.accesslevel,'') IN ('Standard', 'Premium', 'Academic')
     AND subscription_expiry_date > '1990-01-01' AND SUBSCRIPTION_STARTDATE > '1990-01-01'
-    AND trial_requestdate is null
+    AND trial_requestdate is null -- exclude trial subs
+    AND p.product_id != 419 --exclude DCS subs.
 --AND us.user_id = 325123
 --ORDER BY subscription_expiry_date, SUBSCRIPTION_STARTDATE
 ),
