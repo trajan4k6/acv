@@ -5,12 +5,20 @@
     ) 
 }}
 
+with cte_order (
+
+    select ORDERID, COLLATE(regexp_substr(NOTES, '\\SF\\sID\\W+(\\w+)', 1, 1, 'ime', 1),'upper') as "OPPORTUNITYID" 
+    FROM {{ ref('stg_tblorders') }}
+    WHERE regexp_substr(NOTES, '\\SF\\sID\\W+(\\w+)', 1, 1, 'ime', 1) IS NOT NULL
+
+)
 SELECT DISTINCT
 CAST(YEAR((GETDATE())) || RIGHT('0' || MONTH((GETDATE())), 2) || RIGHT('0' || DAYOFMONTH((GETDATE())), 2) AS INT) AS DATE_KEY,
 COALESCE(ind.dimension_individual_key, '-1')  AS DIMENSION_INDIVIDUAL_KEY,
 COALESCE(firm.dimension_firm_key, '-1')  AS DIMENSION_FIRM_KEY,
 COALESCE(prod.dimension_product_key, '-1')  AS DIMENSION_PRODUCT_KEY
-FROM {{ source('preqin', 'tbluser_Subscription') }} us
+COALESCE(sds.DIMENSION_SUBSCRIPTION_KEY, '-1') AS DIMENSION_SUBSCRIPTION_KEY
+FROM {{ ref('stg_tbluser_Subscription') }} us
 JOIN {{ source('preqin', 'tbluser_details') }} ud
     ON us.user_id = ud.user_id
 JOIN {{ source('preqin', 'tblContactFirm') }} cf
@@ -28,6 +36,8 @@ JOIN {{ ref('preqin_dimension_firm') }} firm
 LEFT
 JOIN {{ ref('preqin_dimension_product') }} prod
     ON p.product_id = prod.product_id
+LEFT JOIN cte_order o ON us.orderid = o.orderid 
+LEFT JOIN {{ ref('salesforce_dimension_subscription') }} sds ON o.opportunityID = sds.opportunityID
 
 WHERE
     p.free = 0
@@ -42,12 +52,7 @@ AND (
 OR 
     NVL(product_family, '') = 'Feeds'
 )
---Exclude soft deleted raw records
-AND (
-    us.__DELETED IS NULL
-OR 
-    us.__DELETED <> TRUE
-)
+
 
 {% if is_incremental() %}
 

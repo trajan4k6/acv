@@ -6,6 +6,7 @@ SELECT
     ) }} AS dimension_individual_key,
     CF.CONTACTFIRM_ID AS CONTACTFIRM_ID,
     c.Contact_ID,
+    u.user_id,
     NULLIF(c.contact_title,'') AS contact_title,
     NULLIF(c.contact_firstname,'') AS contact_firstname,
     NULLIF(c.contact_surname,'') AS contact_lastname,
@@ -25,6 +26,6 @@ LEFT
 JOIN {{ ref('preqin_dimension_firm') }} FIRM
     ON CF.firm_id = FIRM.FIRM_ID
 LEFT JOIN {{ ref('stg_tbluser_details') }} u 
-    ON us.user_id = u.user_id
+    ON cf.CONTACTFIRM_ID = u.CONTACTFIRM_ID
 LEFT JOIN {{ ref('stg_tblfirm_address') }} fa 
     ON cf.firm_Address_ID = fa.firm_Address_ID
