@@ -14,8 +14,7 @@ select distinct
     , s.PACKAGE_NAME
     , s.CLASSIFICATION 
     , s.SF_SUBSCRIPTION_START_DATE
-    , COALESCE(ms.TreatAsNew
-              ,CASE WHEN s.CLASSIFICATION = 'New Logo' THEN TRUE ELSE FALSE END) AS TreatAsNew
+    , CASE WHEN s.CLASSIFICATION = 'New Logo' THEN TRUE ELSE ms.TreatAsNew END AS TreatAsNew
     , o.OPPORTUNITYID
     , o.ORDERID
 FROM {{ ref('salesforce_subscriptions') }} s 
