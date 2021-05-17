@@ -1,5 +1,3 @@
-{{ config(materialized='table') }}
-
 with mycte as (
   SELECT distinct
     us.user_id,
@@ -25,8 +23,6 @@ with mycte as (
     AND subscription_expiry_date > '1990-01-01' AND SUBSCRIPTION_STARTDATE > '1990-01-01'
     AND trial_requestdate is null -- exclude trial subs
     AND p.product_id != 419 --exclude DCS subs.
---AND us.user_id = 325123
---ORDER BY subscription_expiry_date, SUBSCRIPTION_STARTDATE
 ),
 mycte2 as (
   select *,
@@ -69,7 +65,7 @@ SELECT
           OR  a.Max_subscription_expiry_date IS NULL AND RunningSubCount = 1
         
         THEN TRUE 
-        ELSE FALSE END AS TreatAsNew
+        ELSE FALSE END AS TreatAsNew -- classification for onboarding use
 
 FROM  mycte4 b 
   JOIN mycte5 n ON n.user_id = b.user_id 

@@ -17,6 +17,7 @@ SELECT
     NULLIF(cf.cf_JobTitle,'') Job_Title,
     NVL(cf.cf_Status, FALSE) Is_Active,
     NULLIF(fa.Country,'') as Contact_Country,
+    NVL(o.TreatAsNew,'') as TreatAsNew
     COALESCE(DIMENSION_FIRM_KEY, '-1') DIMENSION_FIRM_KEY,
     1 AS Datasource_ID
 FROM {{ source('preqin', 'tblContactFirm') }} CF
@@ -25,7 +26,12 @@ JOIN {{ source('preqin', 'tblContact') }} C
 LEFT
 JOIN {{ ref('preqin_dimension_firm') }} FIRM
     ON CF.firm_id = FIRM.FIRM_ID
-LEFT JOIN {{ ref('stg_tbluser_details') }} u 
+LEFT 
+JOIN {{ ref('stg_tbluser_details') }} u 
     ON cf.CONTACTFIRM_ID = u.CONTACTFIRM_ID
-LEFT JOIN {{ ref('stg_tblfirm_address') }} fa 
+LEFT 
+JOIN {{ ref('preqin_user_onboarding')}} o
+    ON u.user_id = o.user_id
+LEFT 
+JOIN {{ ref('stg_tblfirm_address') }} fa 
     ON cf.firm_Address_ID = fa.firm_Address_ID
