@@ -5,7 +5,7 @@
     ) 
 }}
 
-with cte_order (
+with cte_order as (
 
     select ORDERID, COLLATE(regexp_substr(NOTES, '\\SF\\sID\\W+(\\w+)', 1, 1, 'ime', 1),'upper') as "OPPORTUNITYID" 
     FROM {{ ref('stg_tblorders') }}
@@ -16,9 +16,9 @@ SELECT DISTINCT
 CAST(YEAR((GETDATE())) || RIGHT('0' || MONTH((GETDATE())), 2) || RIGHT('0' || DAYOFMONTH((GETDATE())), 2) AS INT) AS DATE_KEY,
 COALESCE(ind.dimension_individual_key, '-1')  AS DIMENSION_INDIVIDUAL_KEY,
 COALESCE(firm.dimension_firm_key, '-1')  AS DIMENSION_FIRM_KEY,
-COALESCE(prod.dimension_product_key, '-1')  AS DIMENSION_PRODUCT_KEY
+COALESCE(prod.dimension_product_key, '-1')  AS DIMENSION_PRODUCT_KEY,
 COALESCE(sds.DIMENSION_SUBSCRIPTION_KEY, '-1') AS DIMENSION_SUBSCRIPTION_KEY
-FROM {{ ref('stg_tbluser_Subscription') }} us
+FROM {{ ref('stg_tbluser_subscription') }} us
 JOIN {{ source('preqin', 'tbluser_details') }} ud
     ON us.user_id = ud.user_id
 JOIN {{ source('preqin', 'tblContactFirm') }} cf

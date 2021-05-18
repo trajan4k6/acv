@@ -10,14 +10,14 @@ SELECT
     NULLIF(c.contact_title,'') AS contact_title,
     NULLIF(c.contact_firstname,'') AS contact_firstname,
     NULLIF(c.contact_surname,'') AS contact_lastname,
-    COALESCE(cf.cf_email, u.user_email,'') email,
+    COALESCE(cf.cf_email, u.user_email) email,
     NULLIF(cf.cf_LinkedIn,'') LinkedIn,
     NULLIF(cf.cf_Tel,'') Phone,
     NULLIF(cf.cf_Mob,'') Mobile,
     NULLIF(cf.cf_JobTitle,'') Job_Title,
     NVL(cf.cf_Status, FALSE) Is_Active,
     NULLIF(fa.Country,'') as Contact_Country,
-    NVL(o.TreatAsNew,'') as TreatAsNew
+    NULLIF(o.TreatAsNew,FALSE) as TreatAsNew,
     COALESCE(DIMENSION_FIRM_KEY, '-1') DIMENSION_FIRM_KEY,
     1 AS Datasource_ID
 FROM {{ source('preqin', 'tblContactFirm') }} CF

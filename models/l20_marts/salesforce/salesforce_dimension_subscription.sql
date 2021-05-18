@@ -43,9 +43,9 @@ WITH cte_opportunity as  (
 
   SELECT DISTINCT 
       {{ dbt_utils.surrogate_key(
-        [2,'']                       
+        [2,'O.OPPORTUNITY_DETAIL_ID']                       
     ) }} AS DIMENSION_SUBSCRIPTION_KEY,
-    COALESCE(sda.DIMENSION_ACCOUNT_KEY, '-1')  AS DIMENSION_ACCOUNT_KEY
+    COALESCE(sda.DIMENSION_ACCOUNT_KEY, '-1')  AS DIMENSION_ACCOUNT_KEY,
     o.*, 
     NVL(geography.name,'Global') as Geography_Name, 
     geography.ProductCode as Geography_ProductCode
