@@ -27,7 +27,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 seeds:
     snowflake_dbt_poc:
         preqin:
-            schema: preqin 
+            schema: dbt_trajan 
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -53,44 +53,44 @@ models:
         l10_staging:
             materialized: view
             stg_acumatica:
-                schema: acumatica
+                schema: dbt_trajan
             stg_preqin:
                 materialized: ephemeral
             stg_salesforce:
                 materialized: ephemeral
             stg_delighted:
-                schema: delighted
+                schema: dbt_trajan
         # Applies to all files under models/l120_marts/
         l20_marts:
             materialized: view
             acumatica:
-                schema: acumatica
+                schema: dbt_trajan
             feedbackify:
-                schema: feedbackify
+                schema: dbt_trajan
             heap:
-                schema: heap
+                schema: dbt_trajan
             preqin:
-                schema: preqin
+                schema: dbt_trajan
                 +materialized: table
             presentation:
-                schema: presentation
+                schema: dbt_trajan
             salesforce:
-                schema: salesforce
+                schema: dbt_trajan
             delighted:
                 enabled: true
-                schema: delighted
+                schema: dbt_trajan
         # Applies to all files under models/l130_presentation/
             materialized: view
         heap_poc:
             fact:
                 enabled: true
-                schema: heap
+                schema: dbt_trajan
             dimension:
                 enabled: true
-                schema: heap    
+                schema: dbt_trajan    
         presentation_poc:
             enabled: true
-            schema: presentation
+            schema: dbt_trajan
 
 on-run-end:
     - "{{ grant_select_on_schemas(schemas, target.role) }}"

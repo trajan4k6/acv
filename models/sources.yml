@@ -84,3 +84,14 @@ sources:
     tables:
       - name: net_promoter_score
         description: Loaded into Snowflake daily using a Rivery.
+
+  - name: acv
+    description: ERP system. Source of Book of Business etc..
+    database: DB_RAW
+    schema: ALTERYX_REVOPS
+    loader: alteryx
+    tables:
+      - name: acv_values_2020
+        description: Loaded into Snowflake manually monthly from an Alteryx workflow that 
+                    uses Book of Business data from Acumatica with manual adjustments by 
+                    Finance / Revops.         
