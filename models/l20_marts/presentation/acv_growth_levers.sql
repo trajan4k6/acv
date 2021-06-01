@@ -1,4 +1,5 @@
-{{ config(materialized='table') }}
+{{   config(      materialized='incremental',         alias='acv_growth_levers'    ) }}
+--{{   config(      materialized='table',         alias='acv_growth_levers'    ) }}
 
 WITH CTE AS 
 (SELECT
@@ -34,7 +35,9 @@ WITH CTE AS
  , CURRENCY,ACV_GBP
  , START_DATE,END_DATE
  FROM
- {{ ref('stg_acv_values') }}  STG JOIN
+ ( SELECT FIRM_ID,LOOKUP_ID,FIRM_NAME,FIRM_TIER,PARENT_FIRM_TYPE,FIRM_CATEGORY,INVENTORY_DESCRIPTION,ASSET_CLASS,PRODUCT_TYPE,REGION,COUNTRY,STATE,CURRENCY,START_DATE,END_DATE,AS_AT_DATE,SUM(ACV_GBP) ACV_GBP
+     FROM   {{ref('stg_acv_values')}} 
+     GROUP BY FIRM_ID,LOOKUP_ID,FIRM_NAME,FIRM_TIER,PARENT_FIRM_TYPE,FIRM_CATEGORY,INVENTORY_DESCRIPTION,ASSET_CLASS,PRODUCT_TYPE,REGION,COUNTRY,STATE,CURRENCY,START_DATE,END_DATE,AS_AT_DATE)  STG JOIN
  (SELECT LOOKUP_ID LOGO_LOOKUP_ID,
          AS_AT_DATE LOGO_AS_AT_DATE,
          NVL(LAG(AS_AT_DATE) OVER (PARTITION BY LOOKUP_ID ORDER BY AS_AT_DATE),AS_AT_DATE) LOGO_PRE_AS_AT_DATE,
@@ -62,8 +65,8 @@ FIN AS(
              WHEN MODULE_DROP<>0 THEN 'MODULE_DROP'
              WHEN NEW_LOCATION<>0 THEN 'NEW_LOCATION'
              WHEN LOCATION_DROP<>0 THEN 'LOCATION_DROP'
-           --  WHEN PRICE_INCREASE<>0 THEN 'PRICE_INCREASE' 
-            -- WHEN PRICE_DECREASE<>0 THEN 'PRICE_DECREASE' 
+             WHEN PRICE_INCREASE<>0 THEN 'PRICE_INCREASE' 
+             WHEN PRICE_DECREASE<>0 THEN 'PRICE_DECREASE' 
              ELSE 'TBD'
         END ROW_TYPE,                    
  *
@@ -241,6 +244,7 @@ SELECT ROW_TYPE,
         ASSET_CLASS,
         PRODUCT_TYPE,
         AS_AT_DATE,
+        EXTRACT ('YEAR', AS_AT_DATE) AS_AT_YEAR,
         REGION,
         COUNTRY,
         STATE,
@@ -252,3 +256,11 @@ FROM     FIN
 --WHERE LOOKUP_ID='2050'
 --AND ROW_TYPE='NEW_LOGO'
 --and INVENTORY_DESCRIPTION='Real Estate Online' AND REGION='Europe/Africa'
+
+
+{% if is_incremental() %}
+
+  -- this filter will only be applied on an incremental run
+  where AS_AT_YEAR >= (select max(AS_AT_YEAR) from {{ this }})
+
+{% endif %}
