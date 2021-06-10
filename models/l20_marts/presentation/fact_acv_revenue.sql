@@ -8,8 +8,8 @@ with final as (
    SELECT 
        CAST(YEAR((A.AS_AT_DATE::DATE)) || RIGHT('0' || MONTH((A.AS_AT_DATE::DATE)), 2) || RIGHT('0' || DAYOFMONTH((A.AS_AT_DATE::DATE)), 2) AS INT) 				AS DATE_KEY,
 	   CASE WHEN AC.CONFORMED_DIMENSION_ASSET_CLASS_KEY = '-1' THEN AC.DIMENSION_ASSET_CLASS_KEY ELSE COALESCE(AC.CONFORMED_DIMENSION_ASSET_CLASS_KEY,'-1') END 					 				AS DIMENSION_ASSET_CLASS_KEY,
-	   COALESCE(R.DIMENSION_REGION_KEY,'-1') 																																		 				AS ACUMATICA_DIMENSION_REGION_KEY,
-	   COALESCE(P.DIMENSION_PRODUCT_KEY,'-1')    																																	 				AS ACUMATICA_DIMENSION_PRODUCT_KEY,
+	   COALESCE(R.DIMENSION_TERRITORY_REGION_KEY,'-1') 																																		 				AS ACV_DIMENSION_TERRITORY_REGION_KEY,
+	   COALESCE(P.DIMENSION_INVENTORY_DESCRIPTION_KEY,'-1')    																																	 				AS ACV_DIMENSION_INVENTORY_DESCRIPTION_KEY,
        CASE WHEN F.CONFORMED_DIMENSION_FIRM_KEY = '-1' THEN F.DIMENSION_FIRM_KEY ELSE COALESCE(F.CONFORMED_DIMENSION_FIRM_KEY,'-1') END AS DIMENSION_FIRM_KEY,
        A.ROW_TYPE,
        NVL(S.ACV_GBP,A.ACV_GBP) ACV_GBP
@@ -23,11 +23,11 @@ with final as (
     LEFT JOIN {{ ref('acumatica_dimension_asset_class') }}  AC
         ON A.ASSET_CLASS = AC.ASSET_CLASS_NAME
     
-    LEFT JOIN {{ ref('acumatica_dimension_region') }}  R
+    LEFT JOIN {{ ref('acv_dimension_territory_region') }}  R
         ON A.REGION = R.REGION
 
-    LEFT JOIN {{ ref('acumatica_dimension_product') }}  P
-        ON A.INVENTORY_DESCRIPTION = P.PRODUCT
+    LEFT JOIN {{ ref('acv_dimension_inventory_description') }}  P
+        ON A.INVENTORY_DESCRIPTION = P.INVENTORY_DESCRIPTION
 
     LEFT JOIN {{ ref('acumatica_dimension_firm') }} F
         ON A.FIRM_ID = F.FIRM_ID
