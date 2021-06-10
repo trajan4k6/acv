@@ -54,6 +54,8 @@ models:
             materialized: view
             stg_acumatica:
                 schema: dbt_trajan
+            stg_acv:
+                schema: dbt_trajan    
             stg_preqin:
                 materialized: ephemeral
             stg_salesforce:
@@ -65,6 +67,8 @@ models:
             materialized: view
             acumatica:
                 schema: dbt_trajan
+            acv:
+                schema: dbt_trajan    
             feedbackify:
                 schema: dbt_trajan
             heap:
