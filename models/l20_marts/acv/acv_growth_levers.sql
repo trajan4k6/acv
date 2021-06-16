@@ -336,6 +336,7 @@ SELECT ROW_TYPE,
         COUNTRY,
         STATE,
         CURRENCY,
+        NVL(ACV_LAST_MONTH,ACV_GBP) ACV_LAST_MONTH,
         ACV_GBP,
         START_DATE,
         END_DATE
