@@ -14,7 +14,7 @@ with final as (
        A.ROW_TYPE,
        CASE WHEN A.ROW_TYPE IN ('NEW_LOGO','CROSS_SELL','UPSELL','NEW_LOCATION','PRICE_INCREASE','NEW_TEAM','FLAT_RENEWAL') THEN  NVL(S.ACV_GBP,A.ACV_GBP)
             WHEN A.ROW_TYPE IN ('NO_CHANGE') THEN 0
-         ELSE -1*NVL(S.ACV_GBP,A.ACV_GBP) END ACV_GBP
+         ELSE CASE WHEN NVL(S.ACV_GBP,A.ACV_GBP)>1 THEN -1*NVL(S.ACV_GBP,A.ACV_GBP) ELSE NVL(S.ACV_GBP,A.ACV_GBP) END END ACV_GBP
     FROM 
              {{ref('acv_growth_levers')}} A
     LEFT JOIN     {{ref('stg_acv_values')}} S
