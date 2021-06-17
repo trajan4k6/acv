@@ -91,7 +91,7 @@ sources:
     schema: ALTERYX_REVOPS
     loader: alteryx
     tables:
-      - name: ACV_VALUES_2020_2018
+      - name: ACV_VALUES_2020_2018 as ACV_VALUES_2020_NEW
         description: Loaded into Snowflake manually monthly from an Alteryx workflow that 
                     uses Book of Business data from Acumatica with manual adjustments by 
                     Finance / Revops.         
