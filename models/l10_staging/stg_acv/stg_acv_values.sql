@@ -16,9 +16,11 @@ renamed AS (
 			"Product Type" PRODUCT_TYPE,
 			"Month Reflected In Bank" AS_AT_DATE,
 			"Region" REGION,
+			"Sales Region" SALES_REGION,
 			"Country" COUNTRY,
 			"State" STATE,
-			"Currency" CURRENCY,ACV_GBP,
+			"Currency" CURRENCY,
+			 ACV_GBP,
 			"Start Date" START_DATE,
 			"End Date" END_DATE
 
