@@ -1,4 +1,4 @@
---{{   config(      materialized='incremental',         alias='acv_growth_levers'    ) }}
+{{   config(      materialized='incremental',         alias='acv_growth_levers'    ) }}
 --{{   config(      materialized='table',         alias='acv_growth_levers'    ) }}
 
 WITH CTE AS 
