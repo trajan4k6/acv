@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
 WITH source AS (
-SELECT * FROM  {{ source('acv', 'ACV_VALUES_2020_NEW') }}
+SELECT * FROM  {{ source('acv', 'ACV_VALUES_2020_2018') }}
 ),
 renamed AS (
     SELECT
