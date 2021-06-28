@@ -33,7 +33,7 @@ with final as (
         ON A.REGION = R.REGION AND A.SALES_REGION = R.SALES_REGION
 
     LEFT JOIN {{ ref('acv_dimension_inventory_description') }}  P
-        ON A.INVENTORY_DESCRIPTION = P.INVENTORY_DESCRIPTION
+        ON A.INVENTORY_DESCRIPTION = P.INVENTORY_DESCRIPTION AND P.PRODUCT_TYPE=A.PRODUCT_TYPE
 
     LEFT JOIN {{ ref('acumatica_dimension_firm') }} F
         ON A.FIRM_ID = F.FIRM_ID
